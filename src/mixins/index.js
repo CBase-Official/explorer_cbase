@@ -100,11 +100,11 @@ const mixin = {
     formatFilNumber(value) {
       value = Number(value);
       if (value === 0) {
-        return "0 FIL";
+        return "0 ";
       } else {
         return value >= 0.00001
-          ? `${value.toFixed(3)} FIL`
-          : `${(value * Math.pow(10, 18)).toLocaleString()} AttoFIL`;
+          ? `${value.toFixed(3)} `
+          : `${(value * Math.pow(10, 18)).toLocaleString()} `;
       }
     },
     unitConversion(item, len) {

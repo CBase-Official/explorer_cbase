@@ -26,7 +26,8 @@
   </div>
 </template>
 <script>
-import { getBoardInfo } from "@/api/home";
+// import { getBoardInfo } from "@/api/home";
+import { latestMesg } from "@/api/apis";
 import { mapMutations } from "vuex";
 export default {
   name: "TotalBoard",
@@ -35,40 +36,28 @@ export default {
       info: [
         {
           labelKey: "height",
-          key: "tipset_height",
+          key: "block_num",
           class: "blue",
           unit: ""
         },
         {
-          labelKey: "reward",
-          key: "block_reward",
+          labelKey: "validator",
+          key: "validatorLen",
           class: "blue",
-          unit: "FIL"
+          unit: "nums"
         },
         {
-          labelKey: "avgMsgTipset",
-          key: "avg_messages_tipset",
+          labelKey: "txspeed",
+          key: "tx_speed",
           class: "purple",
           unit: ""
         },
         {
-          labelKey: "avgGas",
-          key: "avg_gas_price",
+          labelKey: "avgTime",
+          key: "avgTime",
           class: "purple",
-          unit: ""
+          unit: "s"
         },
-        {
-          labelKey: "avgMsg",
-          key: "avg_message_size",
-          class: "yellow",
-          unit: "bytes"
-        },
-        {
-          labelKey: "pledge",
-          key: "pledge_collateral",
-          class: "yellow",
-          unit: "FIL"
-        }
       ],
       timer: null,
       loading: false
@@ -86,7 +75,10 @@ export default {
     ...mapMutations(["setHeight", "increaseLoadCount"]),
     async getBoardInfo() {
       try {
-        const info = await getBoardInfo();
+        // const info = await getBoardInfo();
+        const infos = await latestMesg()
+        // console.log("info:--",infos.data.resp)
+        const info = infos.data.resp;
         this.loading = false;
         info.avg_message_size = parseInt(info.avg_message_size);
         this.info = this.info.map(item => {
@@ -99,7 +91,8 @@ export default {
             )
           };
         });
-        this.setHeight(info.tipset_height);
+        this.setHeight(info.block_num);
+        // this.setHeight(infos.data.result.sync_info.latest_block_height);
         this.increaseLoadCount();
       } catch (e) {
         console.log(e);

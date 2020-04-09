@@ -26,7 +26,6 @@
           </span>
         </div>
         <div @click="goRight" class="arrow right" v-if="!atIndex">
-          <!-- <img src="@/assets/image/icons/right.png" alt /> -->
           <span class="el-icon-arrow-right"></span>
         </div>
       </div>

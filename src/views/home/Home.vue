@@ -1,5 +1,10 @@
 <template>
   <div class="home-con bottom-10">
+    <ticket-chain
+      @hash-change="handleHashChange"
+      @height-change="handleHeightChange"
+      v-if="!isMobile && atIndex"
+    />
     <div class="board-con bottom-20">
       <total-board />
       <total-chart />
@@ -8,11 +13,7 @@
       <block-table />
       <message-table />
     </div>
-    <ticket-chain
-      @hash-change="handleHashChange"
-      @height-change="handleHeightChange"
-      v-if="!isMobile && atIndex"
-    />
+    
   </div>
 </template>
 
@@ -27,8 +28,9 @@ export default {
     };
   },
   components: {
+    TicketChain,
     ...components,
-    TicketChain
+    
   },
   methods: {
     handleHashChange(v) {

@@ -40,7 +40,7 @@ const en = {
     }
   },
   header: {
-    title: "Filecoin Explorer",
+    title: "CBase Explorer",
     tab: ["Home", "Tipset", "Stats"],
     placeholder: "Search by Address/Message ID/Height/Block Hash/Peer ID ",
     filter: [
@@ -112,7 +112,7 @@ const en = {
       }
     },
     mb: {
-      title: "Filecoin Search",
+      title: "CBase Search",
       search: "Search"
     }
   },
@@ -165,6 +165,18 @@ const en = {
       reward: {
         label: "Block Reward",
         tips: "The Latest Block Reward"
+      },
+      validator: {
+        label: "Validator",
+        tips: "The Latest Validator number"
+      },
+      txspeed: {
+        label: "TxSpeed",
+        tips: "The Latest tx speed"
+      },
+      avgTime: {
+        label: "avgTime",
+        tips: "The latest avgTime"
       },
       blockTime: {
         label: "Last BlockTime",
@@ -244,7 +256,7 @@ const en = {
         title: "Cumulative Block Rewards"
       },
       filecoin: {
-        title: "Filecoin Network Block Reward Curve"
+        title: "CBase Network Block Reward Curve"
       },
       filVested: {
         title: "FIL Vested"

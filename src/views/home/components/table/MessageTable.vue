@@ -15,7 +15,8 @@
   </div>
 </template>
 <script>
-import { getLatestMessage } from "@/api/home";
+// import { getLatestMessage } from "@/api/home";
+import { txList } from "@/api/apis";
 import { mapState } from "vuex";
 export default {
   name: "MessageTable",
@@ -79,13 +80,19 @@ export default {
       }
       this.messageTable.loading = true;
       try {
-        const data = await getLatestMessage(num);
-
-        const dataSource = data.msg.map(item => {
-          const { from, to, value } = item.msg;
+        // const data = await getLatestMessage(num);
+        const datas = await txList(0);
+        const dataSource = datas.data.resp.txList.map(item => {
+          // console.log("item:",item)
+          let from = item.signer_id;
+          let to = item.receiver_id;
+          let value = item.value;
+          if(!value){
+            value = 0;
+          }
           const current = new Date().getTime();
           const realTime =
-            item.msgcreate > current / 1000 ? current / 1000 : item.msgcreate;
+            item.msgcreate > current / 1000 ? current / 1000 : item.timestamp/1000;
           return {
             from,
             to,
@@ -93,9 +100,10 @@ export default {
             time: this.formatTime(realTime),
             originTime: realTime,
             current: current,
-            id: item.cid
+            id: item.hash
           };
         });
+        // console.log("dataSource:",dataSource)
         this.messageTable.dataSource = dataSource;
         this.messageTable.loading = false;
         return Promise.resolve();

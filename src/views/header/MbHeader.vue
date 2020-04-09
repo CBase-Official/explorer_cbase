@@ -7,8 +7,8 @@
         @click="$router.go(-1)"
       ></div>
       <div class="logo" v-else>
-        <img src="@/assets/logo.png" />
-        <span>{{ $t("header.title") }}</span>
+        <!-- <img src="@/assets/logo.png" /> -->
+        <span >{{ $t("header.title") }}</span>
       </div>
       <div class="route-name">{{ routeName }}</div>
       <div class="tools" v-if="!showSearch && !showNav">

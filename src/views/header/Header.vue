@@ -2,8 +2,8 @@
   <div class="header-con">
     <el-row align="middle" type="flex">
       <el-col :span="6" class="logo-con" @click.native="goTo('home')">
-        <img src="@/assets/logo.png" class="logo" />
-        <span>{{ $t("header.title") }}</span>
+        <!-- <img src="@/assets/logo.png" class="logo" /> -->
+        <span class="logo">{{ $t("header.title") }}</span>
       </el-col>
       <el-col :span="10" class="search-wrap">
         <Search />
@@ -223,12 +223,17 @@ export default {
   cursor: pointer;
 }
 .logo {
-  width: 47px;
-  margin-right: 20px;
-  & + span {
-    font-size: 30px;
-    color: var(--logo-text-color);
-  }
+  // width: 47px;
+  // margin-right: 20px;
+  // & + span {
+  //   font-size: 30px;
+  //   color: var(--logo-text-color);
+  // }
+  font-size: 23px;
+    color: #09d2e8;
+    font-weight: bolder;
+    width: 100%;
+    margin-right: 20px;
 }
 @media (max-width: 768px) {
   .header-con {

@@ -6,6 +6,11 @@ export function fetch(options) {
       //baseURL: "https://filscan.io/:8700/v0/filscan",
       timeout: 100000
     });
+    // const instance_base = axios.create({
+    //   baseURL: "http://13.250.204.142:3000",
+    //   //baseURL: "https://filscan.io/:8700/v0/filscan",
+    //   timeout: 100000
+    // });
     instance.interceptors.response.use(
       response => {
         let data;
@@ -15,7 +20,7 @@ export function fetch(options) {
           data = response.data;
         }
         return data.data || data;
-      },
+      }, 
       err => {
         return Promise.reject(err);
       }

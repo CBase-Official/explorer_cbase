@@ -18,7 +18,8 @@
   </div>
 </template>
 <script>
-import { getLatestBlock } from "@/api/home";
+// import { getLatestBlock } from "@/api/home";
+import { blockList } from "@/api/apis"
 import { mapState } from "vuex";
 export default {
   name: "BlockTable",
@@ -48,10 +49,10 @@ export default {
             target: "address/detail",
             paramKey: "address"
           },
-          {
-            key: "reward",
-            unit: "FIL"
-          }
+          // {
+          //   key: "reward",
+          //   unit: "FIL"
+          // }
         ],
         loadCount: 0,
         loading: false,
@@ -89,17 +90,19 @@ export default {
       }, 1000);
     },
     async getBlockData(num) {
-      if (num > 30) {
+      if (num > 10) {
         return;
       }
       this.blockTable.heightMap = {};
       this.blockTable.loading = true;
       this.blockTable.span = false;
       try {
-        const data = await getLatestBlock(num);
+        // const data = await getLatestBlock(num);
+        const datas = await blockList(0);
+        // console.log("datas:",datas.data.resp.blockList)
         const heightMap = {};
-        const dataSource = data.block_header.map((item, index) => {
-          const { height, miner, timestamp } = item.block_header;
+        const dataSource = datas.data.resp.blockList.map((item, index) => {
+          const { height, timestamp } = item;
           if (heightMap[height]) {
             heightMap[height].span++;
           } else {
@@ -113,11 +116,10 @@ export default {
             timestamp > current / 1000 ? current / 1000 : timestamp;
           return {
             height: this.formatNumber(height),
-            hash: item.cid,
+            hash: item.hash,
             time: this.formatTime(realTime),
             originTime: realTime,
-            miner: miner,
-            reward: Number(item.reward).toFixed(5),
+            miner: item.createdby,
             current: current
           };
         });
