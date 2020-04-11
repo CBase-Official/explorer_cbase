@@ -9,6 +9,7 @@
 </template>
 <script>
 import { getBlockConfirmCount, getMessageDetail } from "@/api/message";
+import { getTxByHash } from "@/api/apis";
 export default {
   name: "MessageDetail",
   data() {
@@ -28,12 +29,12 @@ export default {
           target: "tipset",
           isComponent: true
         },
-        {
-          key: "blockHash",
-          isLink: true,
-          target: "tipset",
-          paramKey: "hash"
-        },
+        // {
+        //   key: "blockHash",
+        //   isLink: true,
+        //   target: "tipset",
+        //   paramKey: "hash"
+        // },
         {
           key: "time"
         },
@@ -84,16 +85,16 @@ export default {
         let data = await getMessageDetail({
           msg_cid: this.cid
         });
+        let datas = await getTxByHash(this.cid);
+        console.log("datas:",datas)
+        let resx = datas.data.resp.tx;
         const {
-          height,
-          cid,
-          msgcreate,
           msg,
           block_cid,
           method_name,
           exit_code
         } = data.msg;
-        const { from, to, nonce, params, value, gaslimit } = msg;
+        const {   params, gaslimit } = msg;
         let blockRes = await getBlockConfirmCount({
           cid: block_cid
         });
@@ -101,16 +102,16 @@ export default {
         const paramTip = this.$t("message.detail.paramTip");
         const confirm = this.$t("message.detail.confirm");
         const sourceMap = {
-          height: this.formatNumber(height),
-          cid,
+          height: this.formatNumber(resx.height),
+          cid: resx.hash,
           confirm: this.formatNumber(blockRes.count),
-          time: this.getFormatTime(msgcreate),
-          from,
-          to,
+          time: this.getFormatTime(resx.timestamp),
+          from : resx.signer_id,
+          to: resx.receiver_id,
           method: method_name,
-          nonce,
+          nonce: resx.nonce,
           params: params.length > 256 ? `${params.slice(0, 256)} ...` : params,
-          value,
+          value: resx.value,
           fee: this.formatNumber(gaslimit),
           blockHash: block_cid,
           code: exit_code
