@@ -13,13 +13,11 @@
       <block-table />
       <message-table />
     </div>
-    
   </div>
 </template>
 
 <script>
 import * as components from "./components";
-import TicketChain from "../tipset/components/TicketChain";
 export default {
   name: "Home",
   data() {
@@ -28,9 +26,7 @@ export default {
     };
   },
   components: {
-    TicketChain,
-    ...components,
-    
+    ...components
   },
   methods: {
     handleHashChange(v) {

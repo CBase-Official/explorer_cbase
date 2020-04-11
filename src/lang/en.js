@@ -331,7 +331,8 @@ const en = {
         "State Root"
       ]
     },
-    blockType: ["Null Block", "Min Ticket Block", "Other Block"]
+    blockType: ["Null Block", "Min Ticket Block", "Other Block"],
+    nodeType: ["Block", "Chunk"]
   },
   noResult: {
     res: "Search Not Found",

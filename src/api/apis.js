@@ -18,12 +18,12 @@ export function latestMesg(){
     })
 }
 
-export function blockList(page){
+export function blockList(args){
     return axios({
         method: 'GET',
         url: data_url + 'api/block/getBlockList',
         params:{
-            "page":page
+            "page": 0
         }
     })
 }
