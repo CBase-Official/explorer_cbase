@@ -37,3 +37,11 @@ export function txList(page){
         }
     })
 }
+
+export function getTxByHash(tx) {
+    return axios({
+        method: 'GET',
+        url: data_url + 'api/transaction/getTxByHash',
+        params: { "hash": tx, }
+    });
+}
