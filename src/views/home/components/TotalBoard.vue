@@ -47,7 +47,7 @@ export default {
           unit: "nums"
         },
         {
-          labelKey: "txspeed",
+          labelKey: "tx_speed",
           key: "tx_speed",
           class: "purple",
           unit: ""
@@ -77,10 +77,10 @@ export default {
       try {
         // const info = await getBoardInfo();
         const infos = await latestMesg()
-        // console.log("info:--",infos.data.resp)
+        console.log("info:--",infos.data.resp)
         const info = infos.data.resp;
         this.loading = false;
-        info.avg_message_size = parseInt(info.avg_message_size);
+        // info.avg_message_size = parseInt(info.avg_message_size);
         this.info = this.info.map(item => {
           return {
             ...item,

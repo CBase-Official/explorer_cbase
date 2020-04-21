@@ -37,7 +37,7 @@
   </div>
 </template>
 <script>
-import { search } from "@/api/home";
+import { search } from "@/api/apis";
 export default {
   name: "Search",
   data() {
@@ -64,12 +64,17 @@ export default {
       }
       try {
         this.loading = true;
-        let res = await search({
-          key: this.key,
-          filter: this.filter
-        });
+        console.log("key:",this.key)
+        console.log("filter:",this.filter)
+        // let res = await search({
+        //   key: this.key,
+        //   filter: this.filter
+        // });
+        let res = await search(this.key);
         this.loading = false;
-        const { model_flag } = res;
+        console.log("model_flag:",res)
+        const { model_flag } = res.data.resp;
+        
         let target = "";
         let key = "";
         switch (model_flag) {
@@ -77,7 +82,7 @@ export default {
             target = "tipset";
             key = "hash";
             break;
-          case "Height":
+          case "height":
             target = "tipset";
             key = "height";
             break;

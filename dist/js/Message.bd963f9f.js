@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["Message"],{"1d11":function(e,n,s){"use strict";s.r(n);var t=function(){var e=this,n=e.$createElement,s=e._self._c||n;return s("router-view")},a=[],r={name:"Message"},u=r,l=s("2877"),c=Object(l["a"])(u,t,a,!1,null,null,null);n["default"]=c.exports}}]);
+//# sourceMappingURL=Message.bd963f9f.js.map

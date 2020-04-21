@@ -119,7 +119,7 @@ export default {
             hash: item.hash,
             time: this.formatTime(realTime),
             originTime: realTime,
-            miner: item.createdby,
+            miner: item.createdby[0],
             current: current
           };
         });

@@ -74,42 +74,42 @@ const en = {
         label: "Home",
         index: "/"
       },
-      tipset: {
-        label: "Tipset",
-        index: "tipset",
-        items: [
-          {
-            label: "Tipset",
-            index: "/tipset"
-          },
-          {
-            label: "View All Messages",
-            index: "/message"
-          },
-          {
-            label: "View All Accounts",
-            index: "/address/list"
-          }
-        ]
-      },
-      stats: {
-        label: "Stats",
-        index: "Stats",
-        items: [
-          {
-            label: "Mining",
-            index: "/stats/mining"
-          },
-          {
-            label: "Token Metrics",
-            index: "/stats/metrics"
-          },
-          {
-            label: "Peer Map",
-            index: "/stats/map"
-          }
-        ]
-      }
+      // tipset: {
+      //   label: "Tipset",
+      //   index: "tipset",
+      //   items: [
+      //     {
+      //       label: "Tipset",
+      //       index: "/tipset"
+      //     },
+      //     {
+      //       label: "View All Messages",
+      //       index: "/message"
+      //     },
+      //     {
+      //       label: "View All Accounts",
+      //       index: "/address/list"
+      //     }
+      //   ]
+      // },
+      // stats: {
+      //   label: "Stats",
+      //   index: "Stats",
+      //   items: [
+      //     {
+      //       label: "Mining",
+      //       index: "/stats/mining"
+      //     },
+      //     {
+      //       label: "Token Metrics",
+      //       index: "/stats/metrics"
+      //     },
+      //     {
+      //       label: "Peer Map",
+      //       index: "/stats/map"
+      //     }
+      //   ]
+      // }
     },
     mb: {
       title: "CBase Search",
@@ -137,7 +137,7 @@ const en = {
     blockTime: {
       label: "Avg Blocktime",
       min: "Min",
-      max: "Max",
+      max: "Max", 
       tips: "Avg blocktime in latest 24H"
     },
     blockSize: {
@@ -170,8 +170,8 @@ const en = {
         label: "Validator",
         tips: "The Latest Validator number"
       },
-      txspeed: {
-        label: "TxSpeed",
+      tx_speed: {
+        label: "Tps",
         tips: "The Latest tx speed"
       },
       avgTime: {
@@ -273,7 +273,7 @@ const en = {
       total: "Total of <i>{num}</i> Accounts Found ({filNum}FIL)"
     },
     detail: {
-      overview: ["Address", "Type", "Balance", "Code Cid", "Nonce"],
+      overview: ["AccountId", "IsValidator", "Amount", "Locked", "MakeBlockNum","StorageUsage","TxNumber"],
       worker: "Worker List",
       ownerOverview: [
         "Owner Account",
@@ -299,16 +299,16 @@ const en = {
       overview: [
         "Message ID",
         "Height",
-        "Block",
+        // "Block",
         "Time",
         "From",
         "To",
         "Value",
-        "Receipt",
+        // "Receipt",
         //"Fee",
-        "Method",
+        // "Method",
         "Nonce",
-        "Params"
+        // "Params"
       ],
       paramTip: "Raw data in Base64",
       confirm: "Confirmations"
@@ -318,17 +318,9 @@ const en = {
     height: "Height",
     block: {
       overview: [
+        "DataType",
         "Hash",
         "Height",
-        "TimeStamp",
-        "Block Size",
-        "Messages",
-        "Miner",
-        "Reward",
-        "Parent Hash",
-        "Parent Weight",
-        "Ticket",
-        "State Root"
       ]
     },
     blockType: ["Null Block", "Min Ticket Block", "Other Block"],

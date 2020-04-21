@@ -8,7 +8,7 @@
       @header-click="handleHeaderClick"
       v-bind="$attrs"
       v-scroll="load"
-      v-loading="showLoading"
+      v-loading="showLoading" 
       :span-method="spanMethod"
       header-row-class-name="header-row"
       element-loading-background="transparent"
@@ -177,7 +177,9 @@ export default {
   },
   computed: {
     columnsWithLabel() {
+      
       return this.columns.map((item, index) => {
+        // console.log("item:",item);
         return {
           ...item,
           label: this.labels[index]
@@ -245,6 +247,7 @@ export default {
           return [Number(item[0]) + 1, Number(item[0]) + item[1] + 1];
         });
       let className = "";
+      // console.log("res====,",res)
       for (let i = 0; i < res.length; i++) {
         const [left, right] = res[i];
         if (rowIndex >= left && rowIndex < right) {

@@ -44,7 +44,7 @@
           :class="{ [item.class || '']: true }"
           :style="item.style"
           >{{
-            `${item.value != undefined ? item.value : ""} ${item.unit || ""}`
+            `${item.value != undefined ? item.value : "0"} ${item.unit || ""}`
           }}</span
         >
         <component :is="item.component" v-if="item.isComponent" />
@@ -82,6 +82,10 @@ export default {
       default: () => {
         return [];
       }
+    },
+    block_type: {
+      type: String,
+      default: ""
     },
     label: {
       type: String,

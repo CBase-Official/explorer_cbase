@@ -1,15 +1,15 @@
 <template>
   <div class="tipset">
-    <ticket-chain
+    <!-- <ticket-chain
       @hash-change="handleHashChange"
       :height.sync="height"
       :hash="hash"
       @height-change="handleHeightChange"
       @get-blocks="getBlocks"
       v-show="!isMobile"
-    />
-    <block-detail v-if="hash" :hash="hash" :block="currentBlock" />
-    <block-list
+    /> -->
+    <block-detail v-if="hash || height" :hash="hash" :height="height" :block="currentBlock"  />
+    <!-- <block-list
       v-if="!hash && !isMobile"
       :height="currentHeight"
       :list="currentBlockList"
@@ -31,13 +31,14 @@
           :columns="mbColumns"
         ></mb-board>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
-import TicketChain from "./components/TicketChain";
-import BlockList from "./components/BlockList";
+// import TicketChain from "./components/TicketChain";
+// import BlockList from "./components/BlockList";
 import BlockDetail from "./components/BlockDetail";
+import { getBlockByHash , getChunkByHash ,getBlockByHeight } from "@/api/apis";
 import { mapState } from "vuex";
 export default {
   name: "Tipset",
@@ -47,6 +48,8 @@ export default {
       height: 0,
       value: 0,
       blocks: [],
+      block: {},
+      block_type:"Block",
       dataList: [
         {
           key: "height",
@@ -123,19 +126,48 @@ export default {
     "$route.query": {
       deep: true,
       immediate: true,
-      handler(v) {
-        this.hash = v.hash;
-        let height = 0;
-        if (v.height) {
-          height = this.parseFormatNumber(v.height);
+      async handler(v) {
+          console.log("block:",v);
+          if(v.hash){
+            this.hash = v.hash;
+          let datas = await getBlockByHash(this.hash);
+          if(datas.data.resp.block){
+            this.block = datas.data.resp.block;
+            this.block.block_type = "Block"
+          }
+          let datasc = await getChunkByHash(this.hash);
+          if(datasc.data.resp.chunk){
+            this.block = datasc.data.resp.chunk;
+            this.block.height = datasc.data.resp.chunk.height_created;
+            this.block.hash = datasc.data.resp.chunk.chunk_hash;
+            this.block.block_type = "Chunk";
+          }
         }
-        this.height = Number(height);
+        if(v.height){
+          this.height = v.height;
+          let nums = v.height.replace(/,/g,'');
+          let datasN = await getBlockByHeight(nums);
+          console.log("datasN:",datasN)
+          if(datasN.data.resp.header){
+            this.block = datasN.data.resp.header;
+            this.block.block_type = "Block"
+          }
+          console.log("thisblock::",this.block)
+        }
+        
+        
+        
+        // let height = 0;
+        // if (v.height) {
+        //   height = this.parseFormatNumber(v.height);
+        // }
+        // this.height = Number(height);
       }
     }
   },
   components: {
-    TicketChain,
-    BlockList,
+    // TicketChain,
+    // BlockList,
     BlockDetail
   },
   computed: {
@@ -153,9 +185,8 @@ export default {
       }
     },
     currentBlock() {
-      return this.blocks.filter(item => {
-        return item.hash == this.hash;
-      })[0];
+      console.log("sd--",this.block)
+      return this.block;
     },
     mbBlockList() {
       const res = {};
@@ -181,6 +212,7 @@ export default {
   },
   methods: {
     getBlocks(v) {
+      console.log("v:",v)
       this.blocks = v;
     },
     handleHashChange(v) {

@@ -5,7 +5,7 @@
       :dataLabel="$t('address.detail.overview')"
       class="bottom-20"
     />
-    <div class="worker-list bottom-20" v-if="workers.length">
+    <!-- <div class="worker-list bottom-20" v-if="workers.length">
       <span>{{ $t("address.detail.worker") }}</span>
       <span>
         <base-link
@@ -25,8 +25,8 @@
       :dataLabel="$t('address.detail.ownerOverview')"
       class="bottom-20"
       v-if="isMiner"
-    />
-    <el-radio-group
+    /> -->
+    <!-- <el-radio-group
       v-model="showMessage"
       style="margin-bottom: 20px;"
       v-if="isMiner || workers.length"
@@ -37,17 +37,18 @@
       <el-radio-button :label="false">
         {{ $t("address.radio")[1] }}
       </el-radio-button>
-    </el-radio-group>
+    </el-radio-group> -->
     <message-list
       v-if="showMessage"
       :address="$route.query.address"
       type="address"
     />
-    <block-list v-else :miners="address" />
+    <!-- <block-list v-else :miners="address" /> -->
   </div>
 </template>
 <script>
-import { getActorById } from "@/api/account";
+// import { getActorById } from "@/api/account";
+import { getAccountById } from "@/api/apis";
 import mixin from "./mixin";
 export default {
   name: "AddressDetail",
@@ -62,20 +63,25 @@ export default {
       workers: [],
       dataList: [
         {
-          key: "address"
+          key: "accountId"
         },
         {
-          key: "type"
+          key: "isValidator"
         },
         {
-          key: "balance",
-          unit: "FIL"
+          key: "amount",
         },
         {
-          key: "code"
+          key: "locked"
         },
         {
-          key: "nonce"
+          key: "num_header"
+        },
+        {
+          key: "storage_usage"
+        },
+        {
+          key: "tx_account"
         }
       ],
       accountList: [
@@ -113,6 +119,7 @@ export default {
     "$route.query.address": {
       immediate: true,
       handler(v) {
+        
         if (!v) {
           return;
         }
@@ -124,46 +131,46 @@ export default {
   methods: {
     async getAddressInfo(a) {
       try {
-        let res = await getActorById({
-          actor_id: a
-        });
-        const detail = this.parseAddress(res.data);
+        let res = await getAccountById(a);
+        console.log("res:",res.data.resp.account)
+        const detail = res.data.resp.account;
+        detail.accountId = a ;
         this.dataList = this.dataList.map(item => {
           return {
             ...item,
             value: detail[item.key]
           };
         });
-        this.workers = res.work_list;
-        if (res.data.is_miner && res.miner.owner_address != "") {
-          this.isMiner = true;
-        } else {
-          this.isMiner = false;
-        }
-        if (res.work_list.length) {
-          this.address = res.work_list;
-        }
-        this.accountList = this.accountList.map(item => {
-          let linkList;
-          const originValue = res.miner[item.key];
-          if (item.key === "owner_address" || item.key === "peer_id") {
-            linkList = [originValue];
-          } else {
-            linkList = originValue;
-          }
-          const isNumber = parseFloat(originValue) == originValue;
-          let result = {
-            ...item,
-            value: isNumber ? this.formatNumber(originValue, 18) : originValue,
-            linkList: linkList
-          };
-          if (item.key === "power") {
-            result.value = `${originValue} bytes (${this.unitConversion(
-              originValue
-            )})`;
-          }
-          return result;
-        });
+        // this.workers = res.work_list;
+        // if (res.data.is_miner && res.miner.owner_address != "") {
+        //   this.isMiner = true;
+        // } else {
+        //   this.isMiner = false;
+        // }
+        // if (res.work_list.length) {
+        //   this.address = res.work_list;
+        // }
+        // this.accountList = this.accountList.map(item => {
+        //   let linkList;
+        //   const originValue = res.miner[item.key];
+        //   if (item.key === "owner_address" || item.key === "peer_id") {
+        //     linkList = [originValue];
+        //   } else {
+        //     linkList = originValue;
+        //   }
+        //   const isNumber = parseFloat(originValue) == originValue;
+        //   let result = {
+        //     ...item,
+        //     value: isNumber ? this.formatNumber(originValue, 18) : originValue,
+        //     linkList: linkList
+        //   };
+        //   if (item.key === "power") {
+        //     result.value = `${originValue} bytes (${this.unitConversion(
+        //       originValue
+        //     )})`;
+        //   }
+        //   return result;
+        // });
       } catch (e) {
         console.log(e);
       }

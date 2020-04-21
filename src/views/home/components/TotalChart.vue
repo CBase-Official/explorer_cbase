@@ -1,14 +1,14 @@
 <template>
   <div class="total-chart">
     <block-time-chart :time="time" />
-    <block-size-chart :time="time" />
-    <total-power-chart :time="time" />
+    <!-- <block-size-chart :time="time" />
+    <total-power-chart :time="time" /> -->
   </div>
 </template>
 <script>
 import BlockTimeChart from "./chart/BlockTimeChart";
-import BlockSizeChart from "./chart/BlockSizeChart";
-import TotalPowerChart from "./chart/TotalPowerChart";
+// import BlockSizeChart from "./chart/BlockSizeChart";
+// import TotalPowerChart from "./chart/TotalPowerChart";
 export default {
   name: "TotalChart",
   data() {
@@ -17,9 +17,9 @@ export default {
     };
   },
   components: {
-    BlockSizeChart,
+    // BlockSizeChart,
     BlockTimeChart,
-    TotalPowerChart
+    // TotalPowerChart
   },
   created() {
     const end_time = Math.floor(new Date().getTime() / 1000);

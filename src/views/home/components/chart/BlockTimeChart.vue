@@ -34,7 +34,7 @@
   </div>
 </template>
 <script>
-import { getBlockTimeData } from "@/api/home";
+import { getBlockTimeData } from "@/api/apis";
 import dayjs from "dayjs";
 let chart;
 export default {
@@ -121,7 +121,10 @@ export default {
     async getBlockTimeData() {
       try {
         this.loading = true;
-        const res = await getBlockTimeData(this.time);
+        // const res = await getBlockTimeData(this.time);
+        const resp = await getBlockTimeData();
+        let res = resp.data.resp;
+        console.log("res:blocktime:",res)
         this.loading = false;
         const { data, min, max, avg_blocktime } = res;
         const dataList = data.map(item => {

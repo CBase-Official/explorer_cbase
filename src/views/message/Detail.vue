@@ -52,25 +52,24 @@ export default {
         },
         {
           key: "value",
-          unit: "FIL"
         },
         // {
         //   key: "fee",
         //   unit: "FIL"
         // },
-        {
-          key: "code"
-        },
-        {
-          key: "method"
-        },
+        // {
+        //   key: "code"
+        // },
+        // {
+        //   key: "method"
+        // },
         {
           key: "nonce"
         },
-        {
-          key: "params",
-          isComponent: true
-        }
+        // {
+        //   key: "params",
+        //   isComponent: true
+        // }
       ],
       title: {
         label: "Message",
@@ -86,7 +85,7 @@ export default {
           msg_cid: this.cid
         });
         let datas = await getTxByHash(this.cid);
-        console.log("datas:",datas)
+        // console.log("datas:",datas)
         let resx = datas.data.resp.tx;
         const {
           msg,

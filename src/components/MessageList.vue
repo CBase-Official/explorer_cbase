@@ -8,19 +8,19 @@
       <span
         v-html="$t('component.mesList.total', { total: formatNumber(total) })"
       ></span>
-      <el-select
+      <!-- <el-select
         v-model="option.method"
         @change="handleMethodChange"
         :placeholder="$t('component.mesList.placeholder')"
-      >
-        <el-option label="All Method" value="" />
+      > -->
+        <!-- <el-option label="All Method" value="" />
         <el-option
           v-for="item in method"
           :key="item.label"
           :label="item.label"
           :value="item.value"
-        ></el-option>
-      </el-select>
+        ></el-option> -->
+      <!-- </el-select> -->
     </div>
     <div class="table-con" v-if="!isMobile">
       <base-table
@@ -48,8 +48,9 @@
 import {
   getMessage,
   getMessageByAddress,
-  getMessageMethods
+  // getMessageMethods,
 } from "@/api/message";
+import { getTxListByChunkHash , txListByAccountId } from "@/api/apis";
 export default {
   name: "MessageList",
   data() {
@@ -110,13 +111,6 @@ export default {
         //   hideInMobile: true,
         //   unit: "FIL"
         // },
-        {
-          key: "code",
-          hideInMobile: true
-        },
-        {
-          key: "method"
-        }
       ],
       labels: []
     };
@@ -140,6 +134,7 @@ export default {
     }
   },
   methods: {
+    
     handleSizeChange(v) {
       this.option.count = v;
     },
@@ -167,57 +162,56 @@ export default {
         let data = {};
         if (this.type === "block") {
           data = await getMessage(this.option);
-        } else {
+        }else if(this.type == "transaction"){
+          // console.log("gettx ...");
+          let datas = await getTxListByChunkHash(this.cid);
+          data.msgs = datas.data.resp.tx;
+          data.total = datas.data.resp.tx.length;
+        }else {
           this.columns;
-          const res = await getMessageByAddress({
-            ...this.option,
-            address: this.address,
-            from_to: ""
-          });
-          data.msgs = res.data;
-          data.total = res.total;
+          // const res = await getMessageByAddress({
+          //   ...this.option,
+          //   address: this.address,
+          //   from_to: ""
+          // });
+          let res = await txListByAccountId(0,this.address)
+          console.log("res:",res)
+          data.msgs = res.data.resp.txList;
+          
+          data.total = res.data.resp.count;
         }
+        console.log("data:msg:",data.msgs)
         this.total = Number(data.total);
+        
         const messageData = data.msgs.map(item => {
-          const { cid, msgcreate, msg, height, method_name, exit_code } = item;
-          const { from, to, value, gasprice } = msg;
+          console.log("item3:",item)
+          let cid = item.hash;
+          let height = item.height;
+          let from = {
+            render() {
+                return  (
+                  <span>{ellipsisByLength(item.signer_id, 6, true)}</span>
+                );
+              }
+          } ;
+          let to = {
+            render() {
+                return  (
+                  <span>{ellipsisByLength(item.receiver_id, 6, true)}</span>
+                );
+              }
+          };
+          let value = item.value;
+          let times = item.timestamp;
+          times = times/1000;
           let res = {
             cid: cid,
-            time: this.formatTime(msgcreate),
-            from: {
-              render() {
-                return from !== addressHash ? (
-                  <a
-                    href={`./#/address/detail?address=${from}`}
-                    style={{ color: "var(--link-color)" }}
-                  >
-                    {ellipsisByLength(from, 6, true)}
-                  </a>
-                ) : (
-                  <span>{ellipsisByLength(from, 6, true)}</span>
-                );
-              }
-            },
-            to: {
-              render() {
-                return to !== addressHash ? (
-                  <a
-                    href={`./#/address/detail?address=${to}`}
-                    style={{ color: "var(--link-color)" }}
-                  >
-                    {ellipsisByLength(to, 6, true)}
-                  </a>
-                ) : (
-                  <span>{ellipsisByLength(to, 6, true)}</span>
-                );
-              }
-            },
+            time: this.formatTime(times),
+            from: from,
+            to: to,
             value: this.formatFilNumber(value),
-            fee: gasprice,
             type: this.address !== from ? "in" : "out",
-            method: method_name,
             height: this.formatNumber(height),
-            code: exit_code
           };
           if (type === "block") {
             res.from = from;
@@ -225,25 +219,26 @@ export default {
           }
           return res;
         });
-        this.messageData = Object.freeze(messageData);
+        console.log("messageData::",messageData)
+        this.messageData = messageData;
         this.loading = false;
       } catch (e) {
         this.loading = false;
       }
     },
-    async getMessageMethods() {
-      try {
-        let data = await getMessageMethods();
-        this.method = data.method.map(item => {
-          return {
-            value: item,
-            label: item
-          };
-        });
-      } catch (e) {
-        this.loading = false;
-      }
-    }
+    // async getMessageMethods() {
+    //   try {
+    //     let data = await getMessageMethods();
+    //     this.method = data.method.map(item => {
+    //       return {
+    //         value: item,
+    //         label: item
+    //       };
+    //     });
+    //   } catch (e) {
+    //     this.loading = false;
+    //   }
+    // }
   },
   watch: {
     option: {
@@ -269,7 +264,7 @@ export default {
       this.labels.shift();
     }
     this.getMessage();
-    this.getMessageMethods();
+    // this.getMessageMethods();
   },
   computed: {
     mbColumns() {

@@ -80,7 +80,6 @@ export default {
       }
       this.messageTable.loading = true;
       try {
-        // const data = await getLatestMessage(num);
         const datas = await txList(0);
         const dataSource = datas.data.resp.txList.map(item => {
           // console.log("item:",item)
@@ -92,7 +91,8 @@ export default {
           }
           const current = new Date().getTime();
           const realTime =
-            item.msgcreate > current / 1000 ? current / 1000 : item.timestamp/1000;
+            item.msgcreate > current / 1000 ? current / 1000 : parseInt(item.timestamp/1000);
+         
           return {
             from,
             to,
@@ -103,7 +103,6 @@ export default {
             id: item.hash
           };
         });
-        // console.log("dataSource:",dataSource)
         this.messageTable.dataSource = dataSource;
         this.messageTable.loading = false;
         return Promise.resolve();

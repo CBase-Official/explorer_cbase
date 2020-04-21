@@ -1,12 +1,13 @@
 <template>
   <div class="block-detail bottom-10 top-20">
     <div class="block-overview">
-      <overview :dataList="realList" :dataLabel="$t('tipset.block.overview')" />
+      <overview :dataList="realList" :block_type="getBlockType" :dataLabel="$t('tipset.block.overview')" />
     </div>
-    <message-list :withType="false" :cid="hash" />
-  </div>
+    <message-list :withType="false" :type="type" :cid="hash" />
+  </div> 
 </template>
 <script>
+
 export default {
   name: "BlockDetail",
   props: {
@@ -19,11 +20,18 @@ export default {
       default() {
         return {};
       }
+    },
+    type: {
+       type: String,
+       default: "transaction"
     }
   },
   data() {
     return {
       dataList: [
+        {
+          key: "block_type"
+        },
         {
           key: "hash",
           style: {
@@ -32,53 +40,20 @@ export default {
         },
         {
           key: "height",
-          isLink: true,
-          target: "tipset"
         },
-        {
-          key: "utcTime"
-        },
-        {
-          key: "size",
-          unit: "bytes"
-        },
-        {
-          key: "mesLength"
-        },
-        {
-          key: "miner",
-          target: "address/detail",
-          paramKey: "address",
-          isLink: true
-        },
-        {
-          key: "reward",
-          unit: "FIL"
-        },
-        {
-          key: "parents",
-          isLink: true,
-          target: "tipset",
-          paramKey: "hash"
-        },
-        {
-          key: "parent_weight"
-        },
-        {
-          key: "tickets"
-        },
-        {
-          key: "state_root"
-        }
       ]
     };
   },
+  mounted(){
+  },
   computed: {
     realList() {
-      const currentBlock = this.block;
+      let currentBlock =this.block;
+      console.log("currentBlock:",currentBlock)
+      
       return this.dataList.map(item => {
         let linkList;
-        if (item.key === "height" || item.key === "miner") {
+        if (item.key === "height") {
           linkList = [currentBlock[item.key]];
         } else {
           linkList = currentBlock[item.key];
@@ -89,8 +64,11 @@ export default {
           linkList: linkList
         };
       });
+    },
+    getBlockType() {
+      return this.block_type;
     }
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

@@ -100,10 +100,23 @@ export default {
     this.jumpSafeHeight = height;
     this.getTipset(currentHeight);
     chart.on("click", e => {
+      // console.log("ddg-----click:",e.data.name)
+      this.goTo("tipset", {
+        query: {
+          hash: e.data.name
+        }
+      });
       if (e.data.originData) {
-        this.$emit("hash-change", e.data.originData.cid);
-      }
+        // console.log("click1:---");
+        // this.$emit("hash-change", e.data.originData.cid);
+      this.goTo("tipset", {
+        query: {
+          hash: e.data.name
+        }
+      });
+    }
       if (e.componentType === "markLine") {
+        console.log("click2:---");
         this.$emit("height-change", String(this.startHeight - e.value));
       }
     });
@@ -118,13 +131,11 @@ export default {
       }
       try {
         this.loading = true;
-        const res = await blockList({
-          end_height: height,
-          count: 15
-        });
+        const res = await blockList(0);
         this.loading = false;
         this.startHeight = height;
         this.tipsets = Object.freeze(res.data.resp.blockList);
+        this.$emit("get-blocks", res.data.resp.blockList);
         this.drawChart();
       } catch (e) {
         this.loading = false;
@@ -172,6 +183,7 @@ export default {
           }
         })));
       }).flat();
+      console.log("draw1....")
       const linkList = this.tipsets
         .filter((_, i, arr) => i < arr.length - 1)
         .map((t, i) => ({
@@ -183,6 +195,7 @@ export default {
             }
           }
         }));
+        console.log("draw2....")
       /*
       const startHeight = this.startHeight;
 
@@ -206,6 +219,7 @@ export default {
           }
         }
       }));
+      console.log("draw3....")
       /*
       const format = this.formatNumber;
       for (let i = 0; i < 15; i++) {
@@ -240,7 +254,7 @@ export default {
           show: false,
           boundaryGap: false,
           min: -1,
-          max: 15,
+          max: 23,
           axisLine: {
             show: false
           },
@@ -315,7 +329,14 @@ export default {
           }
         ]
       };
-      chart.setOption(option);
+      console.log("draw4....",option)
+      try {
+         chart.setOption(option);
+      } catch (error) {
+        console.log("setOption: ",error)
+      }
+     
+      console.log("dra5w....")
     },
     async goRight() {
       let jumpHeight = Math.max(this.startHeight - 15, 15);
