@@ -168,9 +168,9 @@ export default {
           }
         };
 
-        return [block].concat(t.chash.map((c, j) => ({
-          name: c,
-          value: [i, (j + 2) * 5],
+				const underBlock = {
+          name: `${t.hash}-t`,
+          value: [i, 10],
           symbol: `image://${this.normalSrc}`,
           symbolSize: [56 * rate, 17 * rate],
           symbolOffset: [10 * rate, 0],
@@ -178,10 +178,11 @@ export default {
             color: ticketNode,
             fontSize: 12 * rate,
             formatter() {
-              return c.substring(0, 6);
+              return t.txs.length;
             }
           }
-        })));
+        };
+				return [block, underBlock];
       }).flat();
       console.log("draw1....")
       const linkList = this.tipsets
