@@ -178,7 +178,7 @@ export default {
             color: ticketNode,
             fontSize: 12 * rate,
             formatter() {
-              return t.txs.length;
+              return t.txs;
             }
           }
         };
