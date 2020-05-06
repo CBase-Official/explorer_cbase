@@ -255,7 +255,7 @@ export default {
           show: false,
           boundaryGap: false,
           min: -1,
-          max: 23,
+          // max: 23,
           axisLine: {
             show: false
           },

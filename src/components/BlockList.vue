@@ -197,7 +197,7 @@ export default {
       deep: true,
       immediate: true,
       handler() {
-        this.getBlockByMiner();
+        // this.getBlockByMiner();
       }
     },
     miners() {
