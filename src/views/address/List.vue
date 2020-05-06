@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import { getAccountList } from "@/api/account";
+// import { getAccountList } from "@/api/account";
 import mixin from "./mixin";
 export default {
   name: "AddressList",
@@ -101,13 +101,13 @@ export default {
     }
   },
   mounted() {
-    this.getAddressList();
+    // this.getAddressList();
   },
   watch: {
     option: {
       deep: true,
       handler() {
-        this.getAddressList();
+        // this.getAddressList();
       }
     }
   },

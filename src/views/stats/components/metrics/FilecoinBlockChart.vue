@@ -5,7 +5,7 @@
   </div>
 </template>
 <script>
-import { getBlockReward } from "@/api/token";
+// import { getBlockReward } from "@/api/token";
 import dayjs from "dayjs";
 let chart;
 export default {
@@ -103,19 +103,19 @@ export default {
     },
     async getBlockReward() {
       try {
-        this.loading = true;
-        let res = await getBlockReward({
-          time_diff: 86400 * 30,
-          repeate: 12 * 28
-        });
-        const dataList = res.map(item => {
-          return {
-            name: item.time,
-            value: item.block_rewards
-          };
-        });
-        this.dataList = Object.freeze(dataList);
-        this.drawChart();
+        // this.loading = true;
+        // let res = await getBlockReward({
+        //   time_diff: 86400 * 30,
+        //   repeate: 12 * 28
+        // });
+        // const dataList = res.map(item => {
+        //   return {
+        //     name: item.time,
+        //     value: item.block_rewards
+        //   };
+        // });
+        // this.dataList = Object.freeze(dataList);
+        // this.drawChart();
       } catch (e) {
         this.loading = false;
       }
@@ -123,7 +123,7 @@ export default {
   },
   mounted() {
     chart = this.$chart.init(this.$refs.chart);
-    this.getBlockReward();
+    // this.getBlockReward();
   },
   watch: {
     theme() {

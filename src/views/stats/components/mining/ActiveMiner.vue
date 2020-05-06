@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import { getActiveMinerCount } from "@/api/stats";
+// import { getActiveMinerCount } from "@/api/stats";
 let chart;
 import dayjs from "dayjs";
 export default {
@@ -116,22 +116,22 @@ export default {
     },
     async getActiveMinerCount() {
       try {
-        const { time_diff, repeate_time } = this.selector;
-        this.loading = true;
-        let res = await getActiveMinerCount({
-          time_at: this.now,
-          time_diff,
-          repeate_time
-        });
-        const data = res.map(item => {
-          return {
-            name: item.time_at,
-            value: item.count
-          };
-        });
-        this.counts = Object.freeze(data.reverse());
-        this.loading = false;
-        this.drawChart();
+        // const { time_diff, repeate_time } = this.selector;
+        // this.loading = true;
+        // let res = await getActiveMinerCount({
+        //   time_at: this.now,
+        //   time_diff,
+        //   repeate_time
+        // });
+        // const data = res.map(item => {
+        //   return {
+        //     name: item.time_at,
+        //     value: item.count
+        //   };
+        // });
+        // this.counts = Object.freeze(data.reverse());
+        // this.loading = false;
+        // this.drawChart();
       } catch (e) {
         this.loading = false;
       }
@@ -139,11 +139,11 @@ export default {
   },
   mounted() {
     chart = this.$chart.init(this.$refs.line);
-    this.getActiveMinerCount();
+    // this.getActiveMinerCount();
   },
   watch: {
     selector() {
-      this.getActiveMinerCount();
+      // this.getActiveMinerCount();
     },
     theme() {
       this.drawChart();

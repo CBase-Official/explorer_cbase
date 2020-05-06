@@ -324,7 +324,7 @@ const en = {
       ]
     },
     blockType: ["Null Block", "Min Ticket Block", "Other Block"],
-    nodeType: ["Block", "Chunk"]
+    nodeType: ["Block", "TxLen"]
   },
   noResult: {
     res: "Search Not Found",

@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import { searchMiner, getMinerList } from "@/api/stats";
+// import { searchMiner, getMinerList } from "@/api/stats";
 export default {
   name: "MinerList",
   data() {
@@ -88,7 +88,7 @@ export default {
   },
   mounted() {
     this.start = 0;
-    this.getSortedMiner(0);
+    // this.getSortedMiner(0);
   },
   methods: {
     handleSizeChange(v) {
@@ -99,95 +99,95 @@ export default {
     },
     async getSortedMiner(time_start) {
       try {
-        this.loading = true;
-        const dataLabel = this.$t("stats.mining.minerList.detail");
-        let res;
-        if (time_start == undefined) {
-          time_start = this.now - 86400;
-        }
-        let param = {
-          time_end: this.now,
-          time_start,
-          offset: this.offset,
-          limit: this.limit,
-          sort: this.sortKey,
-          sort_type: this.sortType
-        };
-        res = await getMinerList(param);
-        this.loading = false;
-        this.total = Number(res.mienr_count);
-        const dataSource = res.miners.map((item, index) => {
-          const {
-            increased_power,
-            increased_block,
-            power_percent,
-            block_percent,
-            peer_id,
-            miner
-          } = item;
-          return {
-            miner,
-            pid: peer_id,
-            power: this.unitConversion(increased_power),
-            block: increased_block || "",
-            brate: block_percent,
-            prate: power_percent,
-            index,
-            dataList: [
-              {
-                value: peer_id
-              },
-              { value: "" },
-              { value: "" }
-            ],
-            dataLabel: dataLabel
-          };
-        });
-        this.dataSource = Object.freeze(dataSource);
+        // this.loading = true;
+        // const dataLabel = this.$t("stats.mining.minerList.detail");
+        // let res;
+        // if (time_start == undefined) {
+        //   time_start = this.now - 86400;
+        // }
+        // let param = {
+        //   time_end: this.now,
+        //   time_start,
+        //   offset: this.offset,
+        //   limit: this.limit,
+        //   sort: this.sortKey,
+        //   sort_type: this.sortType
+        // };
+        // res = await getMinerList(param);
+        // this.loading = false;
+        // this.total = Number(res.mienr_count);
+        // const dataSource = res.miners.map((item, index) => {
+        //   const {
+        //     increased_power,
+        //     increased_block,
+        //     power_percent,
+        //     block_percent,
+        //     peer_id,
+        //     miner
+        //   } = item;
+        //   return {
+        //     miner,
+        //     pid: peer_id,
+        //     power: this.unitConversion(increased_power),
+        //     block: increased_block || "",
+        //     brate: block_percent,
+        //     prate: power_percent,
+        //     index,
+        //     dataList: [
+        //       {
+        //         value: peer_id
+        //       },
+        //       { value: "" },
+        //       { value: "" }
+        //     ],
+        //     dataLabel: dataLabel
+        //   };
+        // });
+        // this.dataSource = Object.freeze(dataSource);
       } catch (e) {
         this.loading = false;
       }
     },
     async searchMiner() {
       try {
-        const dataLabel = this.$t("stats.mining.minerList.detail");
-        this.searchLoading = true;
-        let res = await searchMiner({
-          miner: this.key
-        });
-        this.searchLoading = false;
-        if (!res.miners) {
-          this.dataSource = [];
-          this.total = 0;
-          return;
-        }
-        this.dataSource = res.miners.map(item => {
-          const {
-            increased_power,
-            increased_block,
-            power_percent,
-            block_percent,
-            peer_id,
-            miner
-          } = item;
-          return {
-            miner,
-            pid: peer_id,
-            power: this.unitConversion(increased_power),
-            block: increased_block || "",
-            brate: block_percent,
-            prate: power_percent,
-            dataList: [
-              {
-                value: peer_id
-              },
-              { value: "" },
-              { value: "" }
-            ],
-            dataLabel: dataLabel
-          };
-        });
-        this.total = 1;
+        // const dataLabel = this.$t("stats.mining.minerList.detail");
+        // this.searchLoading = true;
+        // let res = await searchMiner({
+        //   miner: this.key
+        // });
+        // this.searchLoading = false;
+        // if (!res.miners) {
+        //   this.dataSource = [];
+        //   this.total = 0;
+        //   return;
+        // }
+        // this.dataSource = res.miners.map(item => {
+        //   const {
+        //     increased_power,
+        //     increased_block,
+        //     power_percent,
+        //     block_percent,
+        //     peer_id,
+        //     miner
+        //   } = item;
+        //   return {
+        //     miner,
+        //     pid: peer_id,
+        //     power: this.unitConversion(increased_power),
+        //     block: increased_block || "",
+        //     brate: block_percent,
+        //     prate: power_percent,
+        //     dataList: [
+        //       {
+        //         value: peer_id
+        //       },
+        //       { value: "" },
+        //       { value: "" }
+        //     ],
+        //     dataLabel: dataLabel
+        //   };
+        // });
+        // this.total = 1;
       } catch (e) {
         this.searchLoading = false;
       }
@@ -203,7 +203,7 @@ export default {
       if ((e.type === "keyup" && e.keyCode !== 13) || !this.key) {
         return;
       }
-      this.searchMiner();
+      // this.searchMiner();
     },
     handleClear() {
       this.getSortedMiner();

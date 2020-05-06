@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import { getPeerById } from "@/api/stats";
+// import { getPeerById } from "@/api/stats";
 export default {
   name: "PeerId",
   data() {
@@ -36,24 +36,24 @@ export default {
     };
   },
   methods: {
-    async getPeerById(peer) {
+    async getPeerById() {
       try {
-        let res = await getPeerById({
-          peer_id: peer
-        });
-        this.dataList = this.dataList.map(item => {
-          let linkList;
-          if (item.key === "miner_address") {
-            linkList = [res.peer[item.key]];
-          } else {
-            linkList = res.peer[item.key];
-          }
-          return {
-            ...item,
-            value: res.peer[item.key],
-            linkList
-          };
-        });
+        // let res = await getPeerById({
+        //   peer_id: peer
+        // });
+        // this.dataList = this.dataList.map(item => {
+        //   let linkList;
+        //   if (item.key === "miner_address") {
+        //     linkList = [res.peer[item.key]];
+        //   } else {
+        //     linkList = res.peer[item.key];
+        //   }
+        //   return {
+        //     ...item,
+        //     value: res.peer[item.key],
+        //     linkList
+        //   };
+        // });
       } catch (e) {
         console.log(e);
       }

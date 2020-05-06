@@ -16,7 +16,7 @@
 <script>
 let chart;
 import dayjs from "dayjs";
-import { getFilOutstanding } from "@/api/token";
+// import { getFilOutstanding } from "@/api/token";
 export default {
   name: "FilOutstanding",
   data() {
@@ -33,7 +33,7 @@ export default {
   },
   mounted() {
     chart = this.$chart.init(this.$refs.chart);
-    this.getFilOutstanding();
+    // this.getFilOutstanding();
   },
   methods: {
     drawChart() {
@@ -149,33 +149,33 @@ export default {
     },
     async getFilOutstanding() {
       try {
-        this.loading = true;
-        let dataList = await getFilOutstanding({
-          time_start: this.now,
-          time_diff: 3600,
-          repeate: 24
-        });
-        this.loading = false;
-        const floatingList = [];
-        const pledgeList = [];
-        dataList.forEach(item => {
-          floatingList.push({
-            name: item.time_end,
-            value: item.floating
-          });
-          pledgeList.push(item.plege_collateral);
-        });
-        this.floating = Object.freeze(floatingList);
-        this.pledge = Object.freeze(pledgeList);
-        const { plege_collateral, floating, outstanding } = dataList.slice(
-          -1
-        )[0];
-        this.info = {
-          pledge: plege_collateral,
-          floating,
-          outstanding
-        };
-        this.drawChart();
+        // this.loading = true;
+        // let dataList = await getFilOutstanding({
+        //   time_start: this.now,
+        //   time_diff: 3600,
+        //   repeate: 24
+        // });
+        // this.loading = false;
+        // const floatingList = [];
+        // const pledgeList = [];
+        // dataList.forEach(item => {
+        //   floatingList.push({
+        //     name: item.time_end,
+        //     value: item.floating
+        //   });
+        //   pledgeList.push(item.plege_collateral);
+        // });
+        // this.floating = Object.freeze(floatingList);
+        // this.pledge = Object.freeze(pledgeList);
+        // const { plege_collateral, floating, outstanding } = dataList.slice(
+        //   -1
+        // )[0];
+        // this.info = {
+        //   pledge: plege_collateral,
+        //   floating,
+        //   outstanding
+        // };
+        // this.drawChart();
       } catch (e) {
         this.loading = false;
       }

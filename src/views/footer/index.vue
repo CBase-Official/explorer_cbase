@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import { getActivePeerCount } from "@/api/home";
+// import { getActivePeerCount } from "@/api/home";
 export default {
   name: "Footer",
   data() {
@@ -22,15 +22,15 @@ export default {
   methods: {
     async getActivePeerCount() {
       try {
-        let res = await getActivePeerCount();
-        this.count = this.formatNumber(Number(res.count));
+        // let res = await getActivePeerCount();
+        // this.count = this.formatNumber(Number(res.count));
       } catch (e) {
         console.log(e);
       }
     }
   },
   mounted() {
-    this.getActivePeerCount();
+    // this.getActivePeerCount();
   }
 };
 </script>

@@ -33,8 +33,8 @@
   </div>
 </template>
 <script>
-import { getBlockByHeight } from "@/api/tipset";
-import { getBlocksByMiner } from "@/api/account";
+// import { getBlockByHeight } from "@/api/tipset";
+// import { getBlocksByMiner } from "@/api/account";
 export default {
   name: "BlockList",
   data() {
@@ -189,7 +189,7 @@ export default {
       immediate: true,
       handler(v) {
         if (v) {
-          this.getBlockByHeight();
+          // this.getBlockByHeight();
         }
       }
     },

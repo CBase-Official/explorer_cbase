@@ -19,7 +19,7 @@
 </template>
 <script>
 let lineChart, pieChart;
-import { getTopMiner, getMinerPowerByTime } from "@/api/stats";
+// import { getTopMiner, getMinerPowerByTime } from "@/api/stats";
 import dayjs from "dayjs";
 export default {
   name: "ProvenPower",
@@ -181,49 +181,49 @@ export default {
     },
     async getTopMiner() {
       try {
-        this.loading = true;
-        const colors = this.chartTheme.provenPower.items;
-        const { time_diff, repeate_time } = this.selector;
-        let res = await getTopMiner({
-          time_at: this.now,
-          offset: 0,
-          limit: 6
-        });
-        const miners = res.miners.map(item => {
-          return item.address;
-        });
-        const powerRes = await getMinerPowerByTime({
-          time_at: this.now,
-          time_diff,
-          repeate_time,
-          miners: miners
-        });
-        this.loading = false;
-        const series = Object.entries(powerRes).map((item, index) => {
-          const [key, value] = item;
-          value.data.reverse();
-          return {
-            data: value.data.map(item => {
-              return {
-                value: parseFloat(item.miner_states.power),
-                time: item.at_time
-              };
-            }),
-            name: key,
-            type: "line",
-            stack: "power",
-            symbol: "none",
-            smooth: true,
-            itemStyle: {
-              color: colors[index].item
-            },
-            areaStyle: {
-              color: colors[index].area
-            }
-          };
-        });
-        this.series = Object.freeze(series);
-        this.drawChart();
+        // this.loading = true;
+        // const colors = this.chartTheme.provenPower.items;
+        // const { time_diff, repeate_time } = this.selector;
+        // let res = await getTopMiner({
+        //   time_at: this.now,
+        //   offset: 0,
+        //   limit: 6
+        // });
+        // const miners = res.miners.map(item => {
+        //   return item.address;
+        // });
+        // const powerRes = await getMinerPowerByTime({
+        //   time_at: this.now,
+        //   time_diff,
+        //   repeate_time,
+        //   miners: miners
+        // });
+        // this.loading = false;
+        // const series = Object.entries(powerRes).map((item, index) => {
+        //   const [key, value] = item;
+        //   value.data.reverse();
+        //   return {
+        //     data: value.data.map(item => {
+        //       return {
+        //         value: parseFloat(item.miner_states.power),
+        //         time: item.at_time
+        //       };
+        //     }),
+        //     name: key,
+        //     type: "line",
+        //     stack: "power",
+        //     symbol: "none",
+        //     smooth: true,
+        //     itemStyle: {
+        //       color: colors[index].item
+        //     },
+        //     areaStyle: {
+        //       color: colors[index].area
+        //     }
+        //   };
+        // });
+        // this.series = Object.freeze(series);
+        // this.drawChart();
       } catch (e) {
         this.loading = false;
       }

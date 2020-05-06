@@ -30,7 +30,7 @@
 </template>
 <script>
 import { blockList } from "@/api/apis";
-import { getLatestBlock } from "@/api/home";
+// import { getLatestBlock } from "@/api/home";
 import { mapState } from "vuex";
 import Null from "@/assets/image/block/null.png";
 import Ticket from "@/assets/image/block/ticket.png";
@@ -93,22 +93,13 @@ export default {
   },
   async mounted() {
     chart = this.$chart.init(this.$refs.chart);
-    let currentHeight;
-    let data = await getLatestBlock(1);
-    const height = data.block_header[0].block_header.height;
-    currentHeight = height;
-    this.jumpSafeHeight = height;
-    this.getTipset(currentHeight);
     chart.on("click", e => {
-      // console.log("ddg-----click:",e.data.name)
       this.goTo("tipset", {
         query: {
           hash: e.data.name
         }
       });
       if (e.data.originData) {
-        // console.log("click1:---");
-        // this.$emit("hash-change", e.data.originData.cid);
       this.goTo("tipset", {
         query: {
           hash: e.data.name
@@ -116,7 +107,6 @@ export default {
       });
     }
       if (e.componentType === "markLine") {
-        console.log("click2:---");
         this.$emit("height-change", String(this.startHeight - e.value));
       }
     });
@@ -145,12 +135,9 @@ export default {
       const rate = this.rate;
       const {
         ticketNode,
-        //otherNode,
         link,
         seriesMarkLine,
         seriesMarkLineLabel,
-        //markArea,
-        //markAreaBorder,
       } = this.chartTheme.tipset;
       const nodeList = this.tipsets.map((t, i) => {
         const block = {
@@ -196,21 +183,6 @@ export default {
             }
           }
         }));
-        console.log("draw2....")
-      /*
-      const startHeight = this.startHeight;
-
-      //Change the height of a graph according to the number of blocks
-      const maxCount = linkList
-        .map(item => {
-          return item.blockCount;
-        })
-        .sort((a, b) => a - b)
-        .reverse()[0];
-      this.typeStyle = {
-        marginTop: `${maxCount * 20 - 200}px`
-      };
-      */
       const lineList = this.tipsets.map((t, i) => ({
         xAxis: i,
         label: {
@@ -220,36 +192,7 @@ export default {
           }
         }
       }));
-      console.log("draw3....")
-      /*
-      const format = this.formatNumber;
-      for (let i = 0; i < 15; i++) {
-        lineList.push({
-          xAxis: i,
-          label: {
-            show: true,
-            formatter() {
-              return format(startHeight - i);
-            }
-          }
-        });
-      }
-      let areaData = [];
-      linkList.forEach(item => {
-        let borderColor = markAreaBorder,
-          borderWidth = 1;
-        areaData.push([
-          {
-            coord: [item.x - 0.2, (item.blockCount + 1) * 5],
-            itemStyle: {
-              borderColor,
-              borderWidth
-            }
-          },
-          { coord: [item.x + 0.376, 1] }
-        ]);
-      });
-      */
+     
       var option = {
         xAxis: {
           show: false,
@@ -312,17 +255,6 @@ export default {
                 fontSize: 12 * rate
               }
             },
-            /*
-            markArea: {
-              data: areaData,
-              itemStyle: {
-                color: markArea,
-                borderColor: markAreaBorder,
-                borderWidth: 1,
-                borderType: "dotted"
-              }
-            },
-            */
             data: nodeList,
             links: linkList,
             z: 0,
@@ -330,14 +262,11 @@ export default {
           }
         ]
       };
-      console.log("draw4....",option)
       try {
          chart.setOption(option);
       } catch (error) {
         console.log("setOption: ",error)
       }
-     
-      console.log("dra5w....")
     },
     async goRight() {
       let jumpHeight = Math.max(this.startHeight - 15, 15);
@@ -352,10 +281,6 @@ export default {
       let jumpHeight = 0;
       if (this.startHeight === this.jumpSafeHeight) {
         return;
-      }
-      if (this.jumpSafeHeight === 0) {
-        let data = await getLatestBlock(1);
-        this.jumpSafeHeight = Number(data.block_header[0].block_header.height);
       }
       if (Number(this.startHeight) + 15 >= this.jumpSafeHeight) {
         jumpHeight = this.jumpSafeHeight;

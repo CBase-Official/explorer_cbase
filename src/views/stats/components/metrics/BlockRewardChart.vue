@@ -14,7 +14,7 @@
 </template>
 <script>
 import dayjs from "dayjs";
-import { getCumulativeBlock } from "@/api/token";
+// import { getCumulativeBlock } from "@/api/token";
 let chart;
 export default {
   name: "BlockRewardChart",
@@ -155,29 +155,29 @@ export default {
     },
     async getCumulativeBlock() {
       try {
-        this.loading = true;
-        const { time_diff, repeate_time, time_start } = this.selector;
-        let res = await getCumulativeBlock({
-          time_start: time_start == undefined ? this.now - 86400 : time_start,
-          time_diff: time_diff,
-          repeate: repeate_time
-        });
-        this.loading = false;
-        const rewardList = [];
-        const countList = [];
-        res.forEach(item => {
-          let now = dayjs(dayjs().format("YYYY MM DD HH:mm")).unix();
-          if (now >= item.time_end) {
-            rewardList.push({
-              name: item.time_end,
-              value: item.blocks_reward
-            });
-            countList.push(parseInt(item.miner_count));
-          }
-        });
-        this.rewardList = Object.freeze(rewardList);
-        this.countList = Object.freeze(countList);
-        this.drawChart();
+        // this.loading = true;
+        // const { time_diff, repeate_time, time_start } = this.selector;
+        // let res = await getCumulativeBlock({
+        //   time_start: time_start == undefined ? this.now - 86400 : time_start,
+        //   time_diff: time_diff,
+        //   repeate: repeate_time
+        // });
+        // this.loading = false;
+        // const rewardList = [];
+        // const countList = [];
+        // res.forEach(item => {
+        //   let now = dayjs(dayjs().format("YYYY MM DD HH:mm")).unix();
+        //   if (now >= item.time_end) {
+        //     rewardList.push({
+        //       name: item.time_end,
+        //       value: item.blocks_reward
+        //     });
+        //     countList.push(parseInt(item.miner_count));
+        //   }
+        // });
+        // this.rewardList = Object.freeze(rewardList);
+        // this.countList = Object.freeze(countList);
+        // this.drawChart();
       } catch (e) {
         this.loading = false;
       }

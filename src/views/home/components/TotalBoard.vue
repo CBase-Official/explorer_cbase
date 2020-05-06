@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-// import { getBoardInfo } from "@/api/home";
 import { latestMesg } from "@/api/apis";
 import { mapMutations } from "vuex";
 export default {
@@ -75,12 +74,10 @@ export default {
     ...mapMutations(["setHeight", "increaseLoadCount"]),
     async getBoardInfo() {
       try {
-        // const info = await getBoardInfo();
         const infos = await latestMesg()
         console.log("info:--",infos.data.resp)
         const info = infos.data.resp;
         this.loading = false;
-        // info.avg_message_size = parseInt(info.avg_message_size);
         this.info = this.info.map(item => {
           return {
             ...item,
@@ -92,7 +89,6 @@ export default {
           };
         });
         this.setHeight(info.block_num);
-        // this.setHeight(infos.data.result.sync_info.latest_block_height);
         this.increaseLoadCount();
       } catch (e) {
         console.log(e);

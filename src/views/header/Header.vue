@@ -45,7 +45,7 @@
   </div>
 </template>
 <script>
-import { search } from "@/api/home";
+// import { search } from "@/api/home";
 import Search from "./Search";
 import ThemeSwitch from "./components/Switch";
 import testPic from "@/assets/image/icons/test.png";
@@ -84,41 +84,41 @@ export default {
         return;
       }
       try {
-        this.loading = true;
-        let res = await search({
-          key: this.key,
-          filter: this.filter
-        });
-        this.loading = false;
-        const { model_flag } = res;
-        let target = "";
-        let key = "";
-        switch (model_flag) {
-          case "block_hash":
-            target = "tipset";
-            key = "hash";
-            break;
-          case "Height":
-            target = "tipset";
-            key = "height";
-            break;
-          case "message_ID":
-            target = "messageDetail";
-            key = "cid";
-            break;
-          case "actor":
-            target = "addressDetail";
-            key = "address";
-            break;
-          case "peer_id":
-            target = "peer";
-            key = "peer_id";
-            break;
-          default:
-            target = "noResult";
-            key = "key";
-        }
-        this.goTarget(target, key);
+        // this.loading = true;
+        // let res = await search({
+        //   key: this.key,
+        //   filter: this.filter
+        // });
+        // this.loading = false;
+        // const { model_flag } = res;
+        // let target = "";
+        // let key = "";
+        // switch (model_flag) {
+        //   case "block_hash":
+        //     target = "tipset";
+        //     key = "hash";
+        //     break;
+        //   case "Height":
+        //     target = "tipset";
+        //     key = "height";
+        //     break;
+        //   case "message_ID":
+        //     target = "messageDetail";
+        //     key = "cid";
+        //     break;
+        //   case "actor":
+        //     target = "addressDetail";
+        //     key = "address";
+        //     break;
+        //   case "peer_id":
+        //     target = "peer";
+        //     key = "peer_id";
+        //     break;
+        //   default:
+        //     target = "noResult";
+        //     key = "key";
+        // }
+        // this.goTarget(target, key);
       } catch (e) {
         this.loading = false;
       }

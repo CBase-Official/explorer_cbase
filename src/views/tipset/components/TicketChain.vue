@@ -33,8 +33,8 @@
   </div>
 </template>
 <script>
-import { getBlockByCid, getTipset } from "@/api/tipset";
-import { getLatestBlock } from "@/api/home";
+// import { getBlockByCid, getTipset } from "@/api/tipset";
+// import { getLatestBlock } from "@/api/home";
 import { getBlockCoord } from "../tool";
 import { mapState } from "vuex";
 import Null from "@/assets/image/block/null.png";
@@ -84,71 +84,71 @@ export default {
     }
   },
   watch: {
-    height(v) {
-      if ((v <= this.startHeight && v > this.startHeight - 15) || v == 0) {
-        this.drawChart();
-      } else {
-        this.getTipset(v);
-      }
-    },
-    async hash(v) {
-      if (!v) {
-        return;
-      }
-      if (this.hashList.includes(v)) {
-        this.drawChart();
-      } else {
-        //for parent hash click
-        let data = await getBlockByCid({
-          cid: this.$route.query.hash
-        });
-        const height = data.blocks[0].block_header.height;
-        this.getTipset(height);
-      }
-    },
+    // height(v) {
+    //   if ((v <= this.startHeight && v > this.startHeight - 15) || v == 0) {
+    //     this.drawChart();
+    //   } else {
+    //     this.getTipset(v);
+    //   }
+    // },
+    // async hash(v) {
+    //   if (!v) {
+    //     return;
+    //   }
+    //   if (this.hashList.includes(v)) {
+    //     this.drawChart();
+    //   } else {
+    //     //for parent hash click
+    //     let data = await getBlockByCid({
+    //       cid: this.$route.query.hash
+    //     });
+    //     const height = data.blocks[0].block_header.height;
+    //     this.getTipset(height);
+    //   }
+    // },
     defaultHeight: {
-      handler(h) {
-        const { height, hash, jumpHeight } = this.$route.query;
-        if ((height || hash || jumpHeight) && !this.atIndex) {
-          return;
-        }
-        if (h != 0) {
-          this.startHeight = h;
-          this.getTipset(h);
-        }
-      }
+      // handler(h) {
+      //   const { height, hash, jumpHeight } = this.$route.query;
+      //   if ((height || hash || jumpHeight) && !this.atIndex) {
+      //     return;
+      //   }
+      //   if (h != 0) {
+      //     this.startHeight = h;
+      //     this.getTipset(h);
+      //   }
+      // }
     },
     theme() {
       this.drawChart();
     }
   },
   async mounted() {
-    chart = this.$chart.init(this.$refs.chart);
-    const height = this.height;
-    let currentHeight;
-    if (height) {
-      currentHeight = height;
-    } else if (this.hash) {
-      let data = await getBlockByCid({
-        cid: this.$route.query.hash
-      });
-      const height = data.blocks[0].block_header.height;
-      currentHeight = height;
-    } else {
-      let data = await getLatestBlock(1);
-      const height = data.block_header[0].block_header.height;
-      currentHeight = height;
-      this.jumpSafeHeight = height;
-    }
-    this.getTipset(currentHeight);
-    chart.on("click", e => {
-      if (e.data.originData) {
-        this.$emit("hash-change", e.data.originData.cid);
-      }
-      if (e.componentType === "markLine") {
-        this.$emit("height-change", String(this.startHeight - e.value));
-      }
-    });
+    // chart = this.$chart.init(this.$refs.chart);
+    // const height = this.height;
+    // let currentHeight;
+    // if (height) {
+    //   currentHeight = height;
+    // } else if (this.hash) {
+    //   let data = await getBlockByCid({
+    //     cid: this.$route.query.hash
+    //   });
+    //   const height = data.blocks[0].block_header.height;
+    //   currentHeight = height;
+    // } else {
+    //   let data = await getLatestBlock(1);
+    //   const height = data.block_header[0].block_header.height;
+    //   currentHeight = height;
+    //   this.jumpSafeHeight = height;
+    // }
+    // this.getTipset(currentHeight);
+    // chart.on("click", e => {
+    //   if (e.data.originData) {
+    //     this.$emit("hash-change", e.data.originData.cid);
+    //   }
+    //   if (e.componentType === "markLine") {
+    //     this.$emit("height-change", String(this.startHeight - e.value));
+    //   }
+    // });
   },
   methods: {
     async getTipset(height) {
@@ -439,8 +439,8 @@ export default {
         return;
       }
       if (this.jumpSafeHeight === 0) {
-        let data = await getLatestBlock(1);
-        this.jumpSafeHeight = Number(data.block_header[0].block_header.height);
+        // let data = await getLatestBlock(1);
+        // this.jumpSafeHeight = Number(data.block_header[0].block_header.height);
       }
       if (Number(this.startHeight) + 15 >= this.jumpSafeHeight) {
         jumpHeight = this.jumpSafeHeight;

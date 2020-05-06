@@ -9,7 +9,7 @@
   </div>
 </template>
 <script>
-import { getMapData } from "@/api/stats";
+// import { getMapData } from "@/api/stats";
 let chart;
 export default {
   name: "NodeMap",
@@ -111,28 +111,28 @@ export default {
     },
     async getMapData() {
       try {
-        this.loading = true;
-        let res = await getMapData();
-        const points = [];
-        this.loading = false;
-        res.peer_point.forEach(item => {
-          const len = item.peers.length;
-          item.peers.forEach(peer => {
-            const { x, y } = this.getRandom();
-            const value =
-              len === 1
-                ? [item.longitude, item.latitude, 10]
-                : [item.longitude + x, item.latitude + y, 10];
-            points.push({
-              name: item.location_en,
-              value,
-              pid: peer.peer_id,
-              ip: peer.ip
-            });
-          });
-        });
-        this.points = Object.freeze(points);
-        this.drawNodeMap();
+        // this.loading = true;
+        // let res = await getMapData();
+        // const points = [];
+        // this.loading = false;
+        // res.peer_point.forEach(item => {
+        //   const len = item.peers.length;
+        //   item.peers.forEach(peer => {
+        //     const { x, y } = this.getRandom();
+        //     const value =
+        //       len === 1
+        //         ? [item.longitude, item.latitude, 10]
+        //         : [item.longitude + x, item.latitude + y, 10];
+        //     points.push({
+        //       name: item.location_en,
+        //       value,
+        //       pid: peer.peer_id,
+        //       ip: peer.ip
+        //     });
+        //   });
+        // });
+        // this.points = Object.freeze(points);
+        // this.drawNodeMap();
       } catch (e) {
         this.loading = false;
       }
@@ -147,7 +147,7 @@ export default {
         this.drawNodeMap(zoom);
       }, 100);
     });
-    this.getMapData();
+    // this.getMapData();
   },
   watch: {
     theme() {

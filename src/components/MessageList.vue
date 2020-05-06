@@ -45,11 +45,11 @@
   </div>
 </template>
 <script>
-import {
-  getMessage,
-  getMessageByAddress,
-  // getMessageMethods,
-} from "@/api/message";
+// import {
+//   getMessage,
+//   getMessageByAddress,
+//   // getMessageMethods,
+// } from "@/api/message";
 import { getTxListByChunkHash , txListByAccountId } from "@/api/apis";
 export default {
   name: "MessageList",
@@ -152,76 +152,76 @@ export default {
     },
     async getMessage() {
       try {
-        this.loading = true;
-        const addressHash = this.address;
-        const type = this.type;
-        const ellipsisByLength = this.ellipsisByLength;
-        if (this.cid) {
-          this.option.block_cid = this.cid;
-        }
-        let data = {};
-        if (this.type === "block") {
-          data = await getMessage(this.option);
-        }else if(this.type == "transaction"){
-          // console.log("gettx ...");
-          let datas = await getTxListByChunkHash(this.cid);
-          data.msgs = datas.data.resp.tx;
-          data.total = datas.data.resp.tx.length;
-        }else {
-          this.columns;
-          // const res = await getMessageByAddress({
-          //   ...this.option,
-          //   address: this.address,
-          //   from_to: ""
-          // });
-          let res = await txListByAccountId(0,this.address)
-          console.log("res:",res)
-          data.msgs = res.data.resp.txList;
+        // this.loading = true;
+        // const addressHash = this.address;
+        // const type = this.type;
+        // const ellipsisByLength = this.ellipsisByLength;
+        // if (this.cid) {
+        //   this.option.block_cid = this.cid;
+        // }
+        // let data = {};
+        // if (this.type === "block") {
+        //   data = await getMessage(this.option);
+        // }else if(this.type == "transaction"){
+        //   // console.log("gettx ...");
+        //   let datas = await getTxListByChunkHash(this.cid);
+        //   data.msgs = datas.data.resp.tx;
+        //   data.total = datas.data.resp.tx.length;
+        // }else {
+        //   this.columns;
+        //   // const res = await getMessageByAddress({
+        //   //   ...this.option,
+        //   //   address: this.address,
+        //   //   from_to: ""
+        //   // });
+        //   let res = await txListByAccountId(0,this.address)
+        //   console.log("res:",res)
+        //   data.msgs = res.data.resp.txList;
           
-          data.total = res.data.resp.count;
-        }
-        console.log("data:msg:",data.msgs)
-        this.total = Number(data.total);
+        //   data.total = res.data.resp.count;
+        // }
+        // console.log("data:msg:",data.msgs)
+        // this.total = Number(data.total);
         
-        const messageData = data.msgs.map(item => {
-          console.log("item3:",item)
-          let cid = item.hash;
-          let height = item.height;
-          let from = {
-            render() {
-                return  (
-                  <span>{ellipsisByLength(item.signer_id, 6, true)}</span>
-                );
-              }
-          } ;
-          let to = {
-            render() {
-                return  (
-                  <span>{ellipsisByLength(item.receiver_id, 6, true)}</span>
-                );
-              }
-          };
-          let value = item.value;
-          let times = item.timestamp;
-          times = times/1000;
-          let res = {
-            cid: cid,
-            time: this.formatTime(times),
-            from: from,
-            to: to,
-            value: this.formatFilNumber(value),
-            type: this.address !== from ? "in" : "out",
-            height: this.formatNumber(height),
-          };
-          if (type === "block") {
-            res.from = from;
-            res.to = to;
-          }
-          return res;
-        });
-        console.log("messageData::",messageData)
-        this.messageData = messageData;
-        this.loading = false;
+        // const messageData = data.msgs.map(item => {
+        //   console.log("item3:",item)
+        //   let cid = item.hash;
+        //   let height = item.height;
+        //   let from = {
+        //     render() {
+        //         return  (
+        //           <span>{ellipsisByLength(item.signer_id, 6, true)}</span>
+        //         );
+        //       }
+        //   } ;
+        //   let to = {
+        //     render() {
+        //         return  (
+        //           <span>{ellipsisByLength(item.receiver_id, 6, true)}</span>
+        //         );
+        //       }
+        //   };
+        //   let value = item.value;
+        //   let times = item.timestamp;
+        //   times = times/1000;
+        //   let res = {
+        //     cid: cid,
+        //     time: this.formatTime(times),
+        //     from: from,
+        //     to: to,
+        //     value: this.formatFilNumber(value),
+        //     type: this.address !== from ? "in" : "out",
+        //     height: this.formatNumber(height),
+        //   };
+        //   if (type === "block") {
+        //     res.from = from;
+        //     res.to = to;
+        //   }
+        //   return res;
+        // });
+        // console.log("messageData::",messageData)
+        // this.messageData = messageData;
+        // this.loading = false;
       } catch (e) {
         this.loading = false;
       }
@@ -244,7 +244,7 @@ export default {
     option: {
       deep: true,
       handler() {
-        this.getMessage();
+        // this.getMessage();
       }
     },
     cid() {
@@ -254,7 +254,7 @@ export default {
       };
     },
     address() {
-      this.getMessage();
+      // this.getMessage();
     }
   },
   mounted() {
@@ -263,7 +263,7 @@ export default {
       this.columns.shift();
       this.labels.shift();
     }
-    this.getMessage();
+    // this.getMessage();
     // this.getMessageMethods();
   },
   computed: {
