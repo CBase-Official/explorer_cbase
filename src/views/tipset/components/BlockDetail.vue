@@ -23,7 +23,7 @@ export default {
     },
     type: {
        type: String,
-       default: "transaction"
+       default: "block"
     }
   },
   data() {

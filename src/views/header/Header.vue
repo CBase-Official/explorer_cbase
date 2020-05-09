@@ -13,6 +13,9 @@
           <el-menu-item index="/">{{
             $t("header.nav.home.label")
           }}</el-menu-item>
+          <el-menu-item index="message">{{
+            $t("header.nav.tx.label")
+          }}</el-menu-item>
           <!-- <el-submenu index="tipset">
             <template slot="title">{{
               $t("header.nav.tipset.label")

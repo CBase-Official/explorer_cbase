@@ -74,6 +74,10 @@ const en = {
         label: "Home",
         index: "/"
       },
+      tx: {
+        label: "Transaction",
+        index: "/txlist"
+      },
       // tipset: {
       //   label: "Tipset",
       //   index: "tipset",
