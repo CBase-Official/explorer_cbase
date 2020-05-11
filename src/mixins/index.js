@@ -86,7 +86,7 @@ const mixin = {
       }
       return Number(`${int}.${dot.slice(0, length)}`).toLocaleString();
     },
-    ellipsisByLength(str, length = 6, flag = true) {
+    ellipsisByLength(str, length = 1, flag = true) {
       return str.length > 2 * length && flag
         ? `${str.slice(0, length)}...${str.slice(-length)}`
         : str;

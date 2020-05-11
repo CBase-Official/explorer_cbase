@@ -140,10 +140,11 @@ export function getBlockTimeData() {
     })
 }
 
-export function getMessage(){
+export function getMessage(options){
+    console.log("option:",options)
     return axios({
         method: 'GET',
         url: data_url + 'api/transaction/getTxListOrByAccount',
-        params: {}
+        params: {"page":options.page}
     })
 }

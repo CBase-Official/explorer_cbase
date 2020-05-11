@@ -60,8 +60,9 @@ export default {
       loading: false,
       option: {
         method: "",
-        begindex: "0",
-        count: "25"
+        "begindex": "0",
+        count: "10",
+        page: 1
       },
       currentPage: 1,
       total: 0,
@@ -139,15 +140,18 @@ export default {
       this.option.count = v;
     },
     handlePageChange(v) {
+      console.log("v---:",v)
       this.currentPage = v;
       this.option.begindex = (v - 1) * this.option.count;
+      this.option.page = v;
     },
     handleMethodChange(v) {
+      console.log("v2---:",v)
       this.currentPage = 1;
       this.option = {
         method: v,
         begindex: 0,
-        count: 25
+        count: 10
       };
     },
     async getMessage() {
@@ -160,14 +164,14 @@ export default {
         let data = {};
         console.log("this.type:",type)
         if (this.type === "transaction") {
-          let dataT = await getMessage();
+          let dataT = await getMessage(this.option);
           data.msgs = dataT.data.resp.txList;
           data.total = dataT.data.resp.count;
         }else if(this.type == "block"){
           // console.log("gettx ...");
           let datas = await getTxListByChunkHash(this.cid);
           data.msgs = datas.data.resp.tx;
-          console.log("ms:",data.msgs)
+          // console.log("ms:",data.msgs)
           data.total = datas.data.resp.tx.length;
         }else {
           this.columns;
@@ -177,32 +181,33 @@ export default {
           //   from_to: ""
           // });
           let res = await txListByAccountId(0,this.address)
-          console.log("res:",res)
+          // console.log("res:",res)
           data.msgs = res.data.resp.txList;
           
           data.total = res.data.resp.count;
         }
-        console.log("data:msg:",data.msgs)
+        // console.log("data:msg:",data.msgs)
         this.total = Number(data.total);
         
         const messageData = data.msgs.map(item => {
-          console.log("item3:",item)
+          // console.log("item3:",item.si)
           let cid = item.hash;
           let height = item.height;
           let from = {
             render() {
                 return  (
-                  <span>{ellipsisByLength(item.signer_id, 6, true)}</span>
+                  <span>{ellipsisByLength(item.signer_id, 1, true)}</span>
                 );
               }
           } ;
           let to = {
             render() {
                 return  (
-                  <span>{ellipsisByLength(item.receiver_id, 6, true)}</span>
+                  <span>{ellipsisByLength(item.receiver_id, 1, true)}</span>
                 );
               }
           };
+          console.log("from:",from)
           let value = item.value;
           let times = item.timestamp;
           times = times/1000;
@@ -221,7 +226,7 @@ export default {
           }
           return res;
         });
-        console.log("messageData::",messageData)
+        // console.log("messageData::",messageData)
         this.messageData = messageData;
         this.loading = false;
       } catch (e) {
@@ -246,13 +251,13 @@ export default {
     option: {
       deep: true,
       handler() {
-        // this.getMessage();
+        this.getMessage();
       }
     },
     cid() {
       this.option = {
         begindex: 0,
-        count: 25
+        count: 10
       };
     },
     address() {
