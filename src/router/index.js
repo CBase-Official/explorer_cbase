@@ -6,6 +6,8 @@ import statsRoute from "./stats";
 import NoResult from "../views/no-result/NoResult.vue";
 import NotFound from "../views/404/404.vue";
 import About from "../views/about";
+import BlockList from "../views/block/BlockList";
+import TxList from "../views/transaction/TransactionList"; 
 Vue.use(VueRouter);
 
 const routes = [
@@ -39,6 +41,16 @@ const routes = [
     path: "*",
     name: "NotFound",
     component: NotFound
+  },
+  {
+    path: "/blockList",
+    name: "blockList",
+    component: BlockList
+  },
+  {
+    path: "/txlist",
+    name: "txlist",
+    component: TxList
   }
 ];
 

@@ -13,8 +13,11 @@
           <el-menu-item index="/">{{
             $t("header.nav.home.label")
           }}</el-menu-item>
-          <el-menu-item index="message">{{
+          <el-menu-item index="txlist">{{
             $t("header.nav.tx.label")
+          }}</el-menu-item>
+          <el-menu-item index="blockList">{{
+            $t("header.nav.block.label")
           }}</el-menu-item>
           <!-- <el-submenu index="tipset">
             <template slot="title">{{

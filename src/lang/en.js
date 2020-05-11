@@ -74,8 +74,12 @@ const en = {
         label: "Home",
         index: "/"
       },
+      block: {
+        label: "Blocks",
+        index: "/blockList"
+      },
       tx: {
-        label: "Transaction",
+        label: "Transactions",
         index: "/txlist"
       },
       // tipset: {
