@@ -37,15 +37,6 @@ export default {
           },
           {
             key: "from",
-            isLink: true,
-            target: "address/detail",
-            paramKey: "address",
-            ellipsis: true
-          },
-          {
-            key: "to",
-            isLink: true,
-            target: "address/detail",
             paramKey: "address",
             ellipsis: true
           },
@@ -83,8 +74,8 @@ export default {
         const datas = await txList(0);
         const dataSource = datas.data.resp.txList.map(item => {
           // console.log("item:",item)
-          let from = item.signer_id;
-          let to = item.receiver_id;
+          // let from = item.signer_id;
+          // let to = item.receiver_id;
           let value = item.value;
           if(!value){
             value = 0;
@@ -94,8 +85,7 @@ export default {
             item.msgcreate > current / 1000 ? current / 1000 : parseInt(item.timestamp/1000);
          
           return {
-            from,
-            to,
+            from:item.signer_id+"->"+item.receiver_id,
             value: this.formatFilNumber(value),
             time: this.formatTime(realTime),
             originTime: realTime,

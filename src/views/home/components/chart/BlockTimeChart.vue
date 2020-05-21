@@ -57,17 +57,17 @@ export default {
         seriesItem,
         seriesMarkLine
       } = this.chartTheme.blockTime;
-      const vm = this;
+      // const vm = this;
       const option = {
-        tooltip: {
-          formatter: function(p) {
-            const html = vm.$t("chart.blockTime", {
-              value: p.value,
-              name: p.name
-            });
-            return html;
-          }
-        },
+        // tooltip: {
+        //   formatter: function(p) {
+        //     const html = vm.$t("chart.blockTime", {
+        //       value: p.value,
+        //       name: p.name
+        //     });
+        //     return html;
+        //   }
+        // },
         grid: {
           left: 0,
           top: 0,

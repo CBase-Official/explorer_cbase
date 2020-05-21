@@ -3,7 +3,7 @@
     <overview
       :dataList="dataList"
       :dataLabel="$t('address.detail.overview')"
-      class="bottom-20"
+      class="bottom-40"
     />
     <!-- <div class="worker-list bottom-20" v-if="workers.length">
       <span>{{ $t("address.detail.worker") }}</span>
@@ -66,7 +66,7 @@ export default {
           key: "accountId"
         },
         {
-          key: "isValidator"
+          key: "nodeType"
         },
         {
           key: "amount",
@@ -135,7 +135,16 @@ export default {
         console.log("res:",res.data.resp.account)
         const detail = res.data.resp.account;
         detail.accountId = a ;
+        if(detail.nodeType == 0){
+          detail.nodeType = "Normal"
+        }else if(detail.nodeType == 1){
+          detail.nodeType = "Node"
+        }else{
+          detail.nodeType = "OtherNode"
+        }
+        detail.amount = detail.amount.toFixed(2)
         this.dataList = this.dataList.map(item => {
+          
           return {
             ...item,
             value: detail[item.key]

@@ -8,7 +8,7 @@
       @get-blocks="getBlocks"
       v-show="!isMobile"
     /> -->
-    <block-detail v-if="hash || height" :hash="hash" :height="height" :block="currentBlock"  />
+    <block-detail v-if="hash || height" :hash="hash" :height="height" :type="type" :block="currentBlock"  />
     <!-- <block-list
       v-if="!hash && !isMobile"
       :height="currentHeight"
@@ -44,6 +44,7 @@ export default {
   name: "Tipset",
   data() {
     return {
+      type: "block",
       hash: "",
       height: 0,
       value: 0,

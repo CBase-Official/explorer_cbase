@@ -11,7 +11,7 @@
       <el-col :span="6" class="link-con">
         <el-menu mode="horizontal" :default-active="$route.path" :router="true">
           <el-menu-item index="/">{{
-            $t("header.nav.home.label")
+            $t("header.nav.home.label") 
           }}</el-menu-item>
           <el-menu-item index="/txlist">{{
             $t("header.nav.tx.label")

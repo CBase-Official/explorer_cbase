@@ -1,7 +1,9 @@
 <template>
   <div class="footer">
-    <div class="peer" @click="goTo('map')">
-      {{ $t("footer.peer", { count: formatNumber(count) }) }}
+    <!-- <div class="peer" @click="goTo('map')"> -->
+    <div class="peer">
+      <!-- {{ $t("footer.peer", { count: formatNumber(count) }) }} -->
+      @CBaseChian 2020
     </div>
     <div class="nav-con">
       <a :href="item.href" v-for="item in $t('footer.nav')" :key="item.label">{{

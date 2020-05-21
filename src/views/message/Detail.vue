@@ -78,109 +78,104 @@ export default {
     };
   },
   methods: {
-    // async getMessageDetail() {
-    //   try {
-    //     this.loading = true;
-    //     let data = await getMessageDetail({
-    //       msg_cid: this.cid
-    //     });
-    //     let datas = await getTxByHash(this.cid);
-    //     // console.log("datas:",datas)
-    //     let resx = datas.data.resp.tx;
-    //     const {
-    //       msg,
-    //       block_cid,
-    //       method_name,
-    //       exit_code
-    //     } = data.msg;
-    //     const {   params, gaslimit } = msg;
-    //     // let blockRes = await getBlockConfirmCount({
-    //     //   cid: block_cid
-    //     // });
+    async getMessageDetail() {
+      try {
+        this.loading = true;
+        // let data = await getMessageDetail({
+        //   msg_cid: this.cid
+        // });
+        let datas = await getTxByHash(this.cid);
+        // console.log("datas:",datas)
+        let resx = datas.data.resp.tx;
+        // const {
+        //   msg,
+        //   block_cid,
+        //   method_name,
+        //   exit_code
+        // } = data.msg;
+        // const {   params, gaslimit } = msg;
+        // let blockRes = await getBlockConfirmCount({
+        //   cid: block_cid
+        // });
 
-    //     const paramTip = this.$t("message.detail.paramTip");
-    //     const confirm = this.$t("message.detail.confirm");
-    //     const sourceMap = {
-    //       height: this.formatNumber(resx.height),
-    //       cid: resx.hash,
-    //       confirm: this.formatNumber(0),
-    //       time: this.getFormatTime(resx.timestamp),
-    //       from : resx.signer_id,
-    //       to: resx.receiver_id,
-    //       method: method_name,
-    //       nonce: resx.nonce,
-    //       params: params.length > 256 ? `${params.slice(0, 256)} ...` : params,
-    //       value: resx.value,
-    //       fee: this.formatNumber(gaslimit),
-    //       blockHash: block_cid,
-    //       code: exit_code
-    //     };
+        const paramTip = this.$t("message.detail.paramTip");
+        const confirm = this.$t("message.detail.confirm");
+        const sourceMap = {
+          height: this.formatNumber(resx.height),
+          cid: resx.hash,
+          confirm: this.formatNumber(0),
+          time: this.getFormatTime(resx.timestamp),
+          from : resx.signer_id,
+          to: resx.receiver_id,
+          nonce: resx.nonce,
+          value: resx.value,
+        };
 
-    //     this.dataList = this.dataList.map(item => {
-    //       let linkList;
-    //       if (item.isLink) {
-    //         linkList = [sourceMap[item.key]];
-    //       } else {
-    //         linkList = sourceMap[item.key];
-    //       }
-    //       let res = {
-    //         ...item,
-    //         value: sourceMap[item.key],
-    //         linkList
-    //       };
-    //       if (item.key === "height") {
-    //         res.component = {
-    //           render() {
-    //             return (
-    //               <div class="height-link">
-    //                 <a href={`./#/tipset?height=${res.value}`}>
-    //                   {sourceMap.height}
-    //                 </a>
-    //                 <span>
-    //                   {" "}
-    //                   ({sourceMap.confirm} {confirm})
-    //                 </span>
-    //               </div>
-    //             );
-    //           }
-    //         };
-    //       }
-    //       if (item.key === "params") {
-    //         res.component = {
-    //           render() {
-    //             return (
-    //               <div class="top-10 params-con">
-    //                 <el-popover
-    //                   placement="bottom-start"
-    //                   width="200"
-    //                   trigger="hover"
-    //                   content={paramTip}
-    //                 >
-    //                   <i class="el-icon-warning-outline" slot="reference"></i>
-    //                 </el-popover>
-    //                 <span class="params-value">{sourceMap[item.key]}</span>
-    //               </div>
-    //             );
-    //           }
-    //         };
-    //       }
-    //       return res;
-    //     });
-    //     this.loading = false;
-    //   } catch (e) {
-    //     if (e) {
-    //       this.loading = false;
-    //     }
-    //   }
-    // }
+        this.dataList = this.dataList.map(item => {
+          let linkList;
+          if (item.isLink) {
+            linkList = [sourceMap[item.key]];
+          } else {
+            linkList = sourceMap[item.key];
+          }
+          let res = {
+            ...item,
+            value: sourceMap[item.key],
+            linkList
+          };
+          if (item.key === "height") {
+            res.component = {
+              render() {
+                return (
+                  <div class="height-link">
+                    <a href={`./#/tipset?height=${res.value}`}>
+                      {sourceMap.height}
+                    </a>
+                    <span>
+                      {" "}
+                      ({sourceMap.confirm} {confirm})
+                    </span>
+                  </div>
+                );
+              }
+            };
+          }
+          if (item.key === "params") {
+            res.component = {
+              render() {
+                return (
+                  <div class="top-10 params-con">
+                    <el-popover
+                      placement="bottom-start"
+                      width="200"
+                      trigger="hover"
+                      content={paramTip}
+                    >
+                      <i class="el-icon-warning-outline" slot="reference"></i>
+                    </el-popover>
+                    <span class="params-value">{sourceMap[item.key]}</span>
+                  </div>
+                );
+              }
+            };
+          }
+          return res;
+        });
+        this.loading = false;
+      } catch (e) {
+        if (e) {
+          this.loading = false;
+        }
+      }
+    }
   },
   watch: {
     cid: {
       immediate: true,
       handler(v) {
-        // if (v) {
-        //   this.getMessageDetail();
-        // }
+        if (v) {
+          this.getMessageDetail();
+        }
       }
     }
   },

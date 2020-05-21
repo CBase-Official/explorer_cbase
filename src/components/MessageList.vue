@@ -50,7 +50,7 @@
 //   getMessageByAddress,
 //   // getMessageMethods,
 // } from "@/api/message";
-import { getTxListByChunkHash , txListByAccountId , getMessage} from "@/api/apis";
+import { getTxListByChunkHash , txListByAccountId , getMessage,getTxListByHeaderHash} from "@/api/apis";
 export default {
   name: "MessageList",
   data() {
@@ -94,7 +94,6 @@ export default {
           target: "address/detail",
           paramKey: "address",
           ellipsis: true,
-          isComponent: type === "address"
         },
         {
           key: "to",
@@ -102,7 +101,6 @@ export default {
           target: "address/detail",
           paramKey: "address",
           ellipsis: true,
-          isComponent: type === "address"
         },
         {
           key: "value"
@@ -154,6 +152,10 @@ export default {
         count: 10
       };
     },
+    formatTime(time){
+      let date = new Date(time);
+      return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()
+    },
     async getMessage() {
       try {
         this.loading = true;
@@ -162,68 +164,39 @@ export default {
         const ellipsisByLength = this.ellipsisByLength;
         
         let data = {};
-        console.log("this.type:",type)
+        console.log("this.type:",this.type)
+        console.log("this.type:",this.cid)
         if (this.type === "transaction") {
           let dataT = await getMessage(this.option);
           data.msgs = dataT.data.resp.txList;
           data.total = dataT.data.resp.count;
         }else if(this.type == "block"){
           // console.log("gettx ...");
-          let datas = await getTxListByChunkHash(this.cid);
+          let datas = await getTxListByHeaderHash(this.cid,this.option);
+           console.log("ms---:",datas)
           data.msgs = datas.data.resp.tx;
-          // console.log("ms:",data.msgs)
-          data.total = datas.data.resp.tx.length;
+         
+          data.total = datas.data.resp.count;
         }else {
           this.columns;
-          // const res = await getMessageByAddress({
-          //   ...this.option,
-          //   address: this.address,
-          //   from_to: ""
-          // });
-          let res = await txListByAccountId(0,this.address)
-          // console.log("res:",res)
+          let res = await txListByAccountId(this.option.page,this.address)
           data.msgs = res.data.resp.txList;
           
           data.total = res.data.resp.count;
         }
-        // console.log("data:msg:",data.msgs)
         this.total = Number(data.total);
         
         const messageData = data.msgs.map(item => {
-          // console.log("item3:",item.si)
-          let cid = item.hash;
-          let height = item.height;
-          let from = {
-            render() {
-                return  (
-                  <span>{ellipsisByLength(item.signer_id, 1, true)}</span>
-                );
-              }
-          } ;
-          let to = {
-            render() {
-                return  (
-                  <span>{ellipsisByLength(item.receiver_id, 1, true)}</span>
-                );
-              }
-          };
-          console.log("from:",from)
-          let value = item.value;
-          let times = item.timestamp;
-          times = times/1000;
           let res = {
-            cid: cid,
-            time: this.formatTime(times),
-            from: from,
-            to: to,
-            value: this.formatFilNumber(value),
-            type: this.address !== from ? "in" : "out",
-            height: this.formatNumber(height),
+            cid: item.hash,
+            time: this.formatTime(item.timestamp),
+            from: item.signer_id,
+            to: item.receiver_id,
+            value: item.value,
+            type: this.address !== item.signer_id ? "in" : "out",
+            height: this.formatNumber(item.height),
           };
-          if (type === "block") {
-            res.from = from;
-            res.to = to;
-          }
+          console.log("res------:",res)
           return res;
         });
         // console.log("messageData::",messageData)

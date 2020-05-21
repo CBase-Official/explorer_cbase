@@ -125,17 +125,17 @@ const en = {
     peer: "Active Peers {count}",
     nav: [
       {
-        label: "Github",
-        href: "https://github.com/CBase-Official"
+        label: "CBaseChain",
+        href: "https://cbasechain.org"
       },
-      {
-        label: "API",
-        href: "https://github.com/CBase-Official"
-      },
-      {
-        label: "Documentation",
-        href: "https://github.com/CBase-Official"
-      }
+      // {
+      //   label: "API",
+      //   href: "https://github.com/CBase-Official"
+      // },
+      // {
+      //   label: "Documentation",
+      //   href: "https://github.com/CBase-Official"
+      // }
     ]
   },
   home: {
@@ -160,7 +160,7 @@ const en = {
     },
     messageTable: {
       title: "Message",
-      label: ["Message ID", "Time", "From", "To", "Value"]
+      label: ["Message ID", "Time", "From->To",  "Value"]
     },
     board: {
       height: {
@@ -278,7 +278,7 @@ const en = {
       total: "Total of <i>{num}</i> Accounts Found ({filNum}FIL)"
     },
     detail: {
-      overview: ["AccountId", "IsValidator", "Amount", "Locked", "MakeBlockNum","StorageUsage","TxNumber"],
+      overview: ["AccountId", "NodeType", "Amount", "Locked", "MakeBlockNum","StorageUsage","TxNumber"],
       worker: "Worker List",
       ownerOverview: [
         "Owner Account",
