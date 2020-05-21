@@ -185,7 +185,7 @@ export default {
       margin-right: auto;
       i {
         color: var(--link-color);
-        font-size: 22px;
+        font-size: 150%;
       }
     }
     .el-dropdown-link {

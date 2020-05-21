@@ -8,8 +8,16 @@
     $--font-path: '~element-ui/lib/theme-chalk/fonts';
     @import "~element-ui/packages/theme-chalk/src/index";
 }
-:root .el-link {
-    font-size: inherit;
+:root {
+    .el-link {
+        font-size: inherit;
+    }
+    .el-input {
+        font-size: inherit;
+    }
+    .el-button {
+        font-size: inherit;
+    }
 }
 .el-menu--horizontal ul {
     background: var(--board-bg-color)!important;
