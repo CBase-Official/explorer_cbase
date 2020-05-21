@@ -33,11 +33,10 @@
 </template>
 <script>
 
-import { getMessage} from "@/api/apis";
+import { blockList} from "@/api/apis";
 export default {
   name: "blockList",
   data() {
-    const type = this.type;
     return {
       method: [],
       loading: false,
@@ -52,43 +51,16 @@ export default {
       messageData: [],
       columns: [
         {
-          key: "type",
-          hideInMobile: true
+          key: "height",
         },
         {
-          key: "cid",
+          key: "hash",
           isLink: true,
           target: "message/detail",
           ellipsis: true
         },
         {
-          key: "height",
-          isLink: true,
-          target: "tipset",
-          paramKey: "height"
-        },
-        {
           key: "time",
-          hideInMobile: true
-        },
-        {
-          key: "from",
-          isLink: true,
-          target: "address/detail",
-          paramKey: "address",
-          ellipsis: true,
-          isComponent: type === "address"
-        },
-        {
-          key: "to",
-          isLink: true,
-          target: "address/detail",
-          paramKey: "address",
-          ellipsis: true,
-          isComponent: type === "address"
-        },
-        {
-          key: "value"
         },
         // {
         //   key: "fee",
@@ -108,10 +80,6 @@ export default {
       type: String,
       default: ""
     },
-    type: {
-      type: String,
-      default: "transaction"
-    },
     address: {
       type: String,
       default: ""
@@ -123,13 +91,11 @@ export default {
       this.option.count = v;
     },
     handlePageChange(v) {
-      console.log("v---:",v)
       this.currentPage = v;
       this.option.begindex = (v - 1) * this.option.count;
       this.option.page = v;
     },
     handleMethodChange(v) {
-      console.log("v2---:",v)
       this.currentPage = 1;
       this.option = {
         method: v,
@@ -137,52 +103,24 @@ export default {
         count: 10
       };
     },
+    formatTime(times){
+      let date = new Date(times);
+      return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+    },
     async getMessage() {
       try {
         this.loading = true;
-        const type = this.type;
-        const ellipsisByLength = this.ellipsisByLength;
-        
         let data = {};
-        let dataT = await getMessage(this.option);
-          data.msgs = dataT.data.resp.txList;
+        let dataT = await blockList(this.option);
+          data.msgs = dataT.data.resp.blockList;
           data.total = dataT.data.resp.count;
         this.total = Number(data.total);
-        
         const messageData = data.msgs.map(item => {
-          let cid = item.hash;
-          let height = item.height;
-          let from = {
-            render() {
-                return  (
-                  <span>{ellipsisByLength(item.signer_id, 1, true)}</span>
-                );
-              }
-          } ;
-          let to = {
-            render() {
-                return  (
-                  <span>{ellipsisByLength(item.receiver_id, 1, true)}</span>
-                );
-              }
-          };
-          console.log("from:",from)
-          let value = item.value;
-          let times = item.timestamp;
-          times = times/1000;
           let res = {
-            cid: cid,
-            time: this.formatTime(times),
-            from: from,
-            to: to,
-            value: this.formatFilNumber(value),
-            type: this.address !== from ? "in" : "out",
-            height: this.formatNumber(height),
+            hash: item.hash,
+            time: this.formatTime(item.timestamp),
+            height: this.formatNumber(item.height),
           };
-          if (type === "block") {
-            res.from = from;
-            res.to = to;
-          }
           return res;
         });
 
@@ -211,13 +149,12 @@ export default {
     }
   },
   mounted() {
-    this.labels = [...this.$t("component.mesList.label")];
+    this.labels = [...this.$t("component.blockList.label")];
     if (!this.withType) {
       this.columns.shift();
       this.labels.shift();
     }
     this.getMessage();
-    // this.getMessageMethods();
   },
   computed: {
     mbColumns() {

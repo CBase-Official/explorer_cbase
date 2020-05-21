@@ -97,7 +97,7 @@ export default {
     handlePageChange(v) {
       this.offset = (v - 1) * this.limit;
     },
-    async getSortedMiner(time_start) {
+    async getSortedMiner() {
       try {
         // this.loading = true;
         // const dataLabel = this.$t("stats.mining.minerList.detail");

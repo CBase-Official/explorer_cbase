@@ -43,12 +43,6 @@ export default {
           {
             key: "time"
           },
-          {
-            key: "miner",
-            isLink: true,
-            target: "address/detail",
-            paramKey: "address"
-          },
           // {
           //   key: "reward",
           //   unit: "FIL"
@@ -63,31 +57,9 @@ export default {
     };
   },
   methods: {
-    initBlockTimer() {
-      this.blockTable.timer = setInterval(() => {
-        this.blockTable.heightMap = {};
-        const heightMap = {};
-        this.blockTable.dataSource = this.blockTable.dataSource.map(
-          (item, index) => {
-            if (heightMap[item.height]) {
-              heightMap[item.height].span++;
-            } else {
-              heightMap[item.height] = {
-                span: 1,
-                index: index
-              };
-            } //表头合并
-            return {
-              ...item,
-              time: this.formatTime(item.originTime, item.current),
-              current: item.current + 1000
-            };
-          }
-        );
-        Object.values(heightMap).forEach(item => {
-          this.blockTable.heightMap[item.index] = item.span;
-        });
-      }, 1000);
+    formatTime(times){
+      let date = new Date(times);
+      return date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
     },
     async getBlockData(num) {
       if (num > 10) {
@@ -111,18 +83,13 @@ export default {
               index
             };
           } //表头合并
-          const current = new Date().getTime();
-          const realTime =
-            timestamp > current / 1000 ? current / 1000 : timestamp;
           return {
             height: this.formatNumber(height),
             hash: item.hash,
-            time: this.formatTime(realTime),
-            originTime: realTime,
-            miner: item.createdby[0],
-            current: current
+            time: this.formatTime(timestamp)
           };
         });
+        console.log("dataSource:",dataSource)
         this.blockTable.dataSource = dataSource;
         Object.values(heightMap).forEach(item => {
           this.blockTable.heightMap[item.index] = item.span;
@@ -148,7 +115,7 @@ export default {
           await this.getBlockData(10 * (this.blockTable.loadCount + 1));
           this.blockTable.loadCount++;
           this.blockTable.loading = false;
-          this.initBlockTimer();
+          // this.initBlockTimer();
         } catch (e) {
           this.blockTable.loading = false;
         }
@@ -162,7 +129,7 @@ export default {
       }
       clearInterval(this.blockTable.timer);
       await this.getBlockData(this.blockTable.loadCount * 10);
-      this.initBlockTimer();
+      // this.initBlockTimer();
     }
   },
   beforeDestroy() {

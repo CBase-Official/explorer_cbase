@@ -267,6 +267,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
 .base-table {
   & ::v-deep .el-table.radius {
     border-radius: 8px;

@@ -30,10 +30,6 @@ const en = {
         "Height",
         "Block Hash",
         "Time",
-        "Messages",
-        "BlockSize",
-        "Miner",
-        "Reward"
       ],
       total: "Total of <i>{total}</i> Blocks(<i>{fil}</i>FIL)",
       height: "Tipset Height # {height}"
@@ -74,13 +70,14 @@ const en = {
         label: "Home",
         index: "/"
       },
-      block: {
-        label: "Blocks",
-        index: "/blockList"
-      },
+     
       tx: {
         label: "Transactions",
         index: "/txlist"
+      },
+      block: {
+        label: "Blocks",
+        index: "/blockList"
       },
       // tipset: {
       //   label: "Tipset",
@@ -129,15 +126,15 @@ const en = {
     nav: [
       {
         label: "Github",
-        href: ""
+        href: "https://github.com/CBase-Official"
       },
       {
         label: "API",
-        href: ""
+        href: "https://github.com/CBase-Official"
       },
       {
         label: "Documentation",
-        href: ""
+        href: "https://github.com/CBase-Official"
       }
     ]
   },
@@ -159,7 +156,7 @@ const en = {
     },
     blockTable: {
       title: "Block",
-      label: ["Height", "Hash", "Blocktime", "Miner", "Reward"]
+      label: ["Height", "Hash", "Blocktime"]
     },
     messageTable: {
       title: "Message",

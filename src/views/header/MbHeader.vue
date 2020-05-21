@@ -22,10 +22,10 @@
     </div>
     <div v-if="showNav" class="nav-bar">
       <div v-for="(value, key) in $t('header.nav')" :key="key" class="nav-item">
-        <div class="title" @click="key === 'home' ? go('/') : null">
+        <div class="title" @click="key === 'home' ? go('/') : (key=== 'tx'? go('/txlist'):go('/blockList'))">
           {{ value.label }}
         </div>
-        <div v-if="value.items">
+        <!-- <div v-if="value.items">
           <div
             v-for="item in value.items"
             :key="item.index"
@@ -34,7 +34,7 @@
           >
             {{ item.label }}
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div v-if="showSearch" class="search-bar">

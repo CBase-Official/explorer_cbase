@@ -2,9 +2,11 @@ var axios = require("axios");
 // var data_url = "http://112.74.106.123:3000/"
 // var near_url = "http://112.74.106.123:3030";
 
-var data_url = "http://192.168.80.36:3000/"
-var near_url = "http://192.168.80.36:3030"
+var data_url = "http://47.57.7.136:3000/"
+var near_url = "http://18.163.235.28:3030"
 
+// var data_url = "http://192.168.80.54:3000/"
+// var near_url = "http://192.168.80.54:3030"
 // var data_url = "http://47.90.101.201:3000/";
 // var near_url = "http://47.90.101.201:3030"
 

@@ -8,7 +8,7 @@ export default new Vuex.Store({
     defaultHeight: 0,
     rate: 1,
     loadCount: 0,
-    theme: "dark",
+    theme: "light",
     isMobile: true,
   },
   mutations: {

@@ -13,10 +13,10 @@
           <el-menu-item index="/">{{
             $t("header.nav.home.label")
           }}</el-menu-item>
-          <el-menu-item index="txlist">{{
+          <el-menu-item index="/txlist">{{
             $t("header.nav.tx.label")
           }}</el-menu-item>
-          <el-menu-item index="blockList">{{
+          <el-menu-item index="/blockList">{{
             $t("header.nav.block.label")
           }}</el-menu-item>
           <!-- <el-submenu index="tipset">
@@ -47,7 +47,7 @@
         <theme-switch />
       </el-col>
     </el-row>
-    <img :src="testPicSrc" alt="" class="test-pic" />
+    <!-- <img :src="testPicSrc" alt="" class="test-pic" /> -->
   </div>
 </template>
 <script>
