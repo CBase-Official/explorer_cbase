@@ -25,7 +25,7 @@ const lightTheme = {
     ])
   },
   tipset: {
-    ticketNode: "white",
+    ticketNode: "blue",
     otherNode: "#0091FF",
     nullNode: "",
     link: "#0091FF",

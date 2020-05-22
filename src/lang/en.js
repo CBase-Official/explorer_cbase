@@ -2,16 +2,12 @@ const en = {
   component: {
     mesList: {
       label: [
-        "Type",
         "Message ID",
         "Height",
         "Time",
         "From",
         "To",
         "Value",
-        "Receipt",
-        // "Fee",
-        "Method"
       ],
       total: "Total of <i>{total}</i> Messages",
       method: [
@@ -30,6 +26,7 @@ const en = {
         "Height",
         "Block Hash",
         "Time",
+        "TxLen"
       ],
       total: "Total of <i>{total}</i> Blocks(<i>{fil}</i>FIL)",
       height: "Tipset Height # {height}"

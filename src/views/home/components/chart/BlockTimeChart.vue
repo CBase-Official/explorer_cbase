@@ -140,7 +140,7 @@ export default {
           };
         });
         this.dataList = Object.freeze(dataList);
-        this.avgTime = Math.floor(avg_blocktime);
+        this.avgTime = avg_blocktime;
         this.min = min;
         this.max = max;
         this.drawTimeChart();

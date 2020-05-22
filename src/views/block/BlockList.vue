@@ -62,6 +62,9 @@ export default {
         {
           key: "time",
         },
+        {
+          key: 'txlen',
+        }
         // {
         //   key: "fee",
         //   hideInMobile: true,
@@ -120,6 +123,7 @@ export default {
             hash: item.hash,
             time: this.formatTime(item.timestamp),
             height: this.formatNumber(item.height),
+            txlen: item.txs
           };
           return res;
         });

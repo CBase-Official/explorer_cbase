@@ -51,10 +51,6 @@ export default {
       messageData: [],
       columns: [
         {
-          key: "type",
-          hideInMobile: true
-        },
-        {
           key: "cid",
           isLink: true,
           target: "message/detail",
@@ -131,11 +127,15 @@ export default {
         count: 10
       };
     },
+    formatTime(times){
+      let date = new Date(times);
+      return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+    },
     async getMessage() {
       try {
         this.loading = true;
-        const type = this.type;
-        const ellipsisByLength = this.ellipsisByLength;
+        // const type = this.type;
+        // const ellipsisByLength = this.ellipsisByLength;
         
         let data = {};
         let dataT = await getMessage(this.option);
@@ -145,40 +145,14 @@ export default {
         this.total = Number(data.total);
         
         const messageData = data.msgs.map(item => {
-          // console.log("item3:",item.si)
-          let cid = item.hash;
-          let height = item.height;
-          let from = {
-            render() {
-                return  (
-                  <span>{ellipsisByLength(item.signer_id, 1, true)}</span>
-                );
-              }
-          } ;
-          let to = {
-            render() {
-                return  (
-                  <span>{ellipsisByLength(item.receiver_id, 1, true)}</span>
-                );
-              }
-          };
-          console.log("from:",from)
-          let value = item.value;
-          let times = item.timestamp;
-          times = times/1000;
           let res = {
-            cid: cid,
-            time: this.formatTime(times),
-            from: from,
-            to: to,
-            value: this.formatFilNumber(value),
-            type: this.address !== from ? "in" : "out",
-            height: this.formatNumber(height),
+            cid: item.hash,
+            time: this.formatTime(item.timestamp),
+            from: item.signer_id,
+            to: item.receiver_id,
+            value: this.formatFilNumber(item.value),
+            height: this.formatNumber(item.height),
           };
-          if (type === "block") {
-            res.from = from;
-            res.to = to;
-          }
           return res;
         });
         // console.log("messageData::",messageData)
