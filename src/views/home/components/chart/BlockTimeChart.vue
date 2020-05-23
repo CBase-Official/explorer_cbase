@@ -124,7 +124,7 @@ export default {
         // const res = await getBlockTimeData(this.time);
         const resp = await getBlockTimeData();
         let res = resp.data.resp;
-        console.log("res:blocktime:",res)
+        // console.log("res:blocktime:",res)
         this.loading = false;
         const { data, min, max, avg_blocktime } = res;
         const dataList = data.map(item => {

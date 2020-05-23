@@ -113,13 +113,13 @@ export default {
       this.option.count = v;
     },
     handlePageChange(v) {
-      console.log("v---:",v)
+      // console.log("v---:",v)
       this.currentPage = v;
       this.option.begindex = (v - 1) * this.option.count;
       this.option.page = v;
     },
     handleMethodChange(v) {
-      console.log("v2---:",v)
+      // console.log("v2---:",v)
       this.currentPage = 1;
       this.option = {
         method: v,

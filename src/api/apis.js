@@ -2,12 +2,12 @@ var axios = require("axios");
 // var data_url = "http://112.74.106.123:3000/"
 // var near_url = "http://112.74.106.123:3030";
 
-// var data_url = "http://47.57.7.136:3000/"
-// var near_url = "http://18.163.235.28:3030"
+var data_url = "http://8.210.21.255:3000/"
+var near_url = "http://8.210.15.50:3030"
 
 // var data_url = "http://192.168.80.54:3000/"
-var data_url = "http://192.168.1.108:3000/"
-var near_url = "http://192.168.80.54:3030"
+// var data_url = "http://192.168.1.108:3000/"
+// var near_url = "http://192.168.80.54:3030"
 // var data_url = "http://47.90.101.201:3000/";
 // var near_url = "http://47.90.101.201:3030"
 
@@ -97,8 +97,6 @@ export function getTxListByChunkHash(tx) {
 }
 
 export function getTxListByHeaderHash(tx, options) {
-    console.log("tx:",tx);
-    console.log("o;;",options.page)
     return axios({
         method: 'GET',
         url: data_url + 'api/transaction/getTxByHeaderHash',
@@ -147,7 +145,6 @@ export function getBlockTimeData() {
 }
 
 export function getMessage(options){
-    console.log("option:",options)
     return axios({
         method: 'GET',
         url: data_url + 'api/transaction/getTxListOrByAccount',

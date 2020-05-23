@@ -7,7 +7,7 @@
     />
     <div class="overview-label" v-if="label && !isMobile">{{ label }}</div>
     <div
-      class="detail-info-con"
+      class="detail-info-con" 
       v-loading="showLoading"
       element-loading-background="var(--board-bg-color)"
     >
@@ -125,6 +125,7 @@ export default {
     .info-item {
       min-height: 60px;
       display: flex;
+      
       &.stripe:nth-child(2n) {
         background: var(--overview-bg-dark-color);
       }
@@ -181,7 +182,7 @@ export default {
       padding-bottom: 3vw;
       .info-item {
         display: block;
-        padding: 0 6vw;
+        padding: 3vw 0 3vw 6vw;
         &:nth-child(2n) {
           background: var(--board-bg-color);
         }

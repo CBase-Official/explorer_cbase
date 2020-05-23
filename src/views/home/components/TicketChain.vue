@@ -171,7 +171,7 @@ export default {
         };
 				return [block, underBlock];
       }).flat();
-      console.log("draw1....")
+      // console.log("draw1....")
       const linkList = this.tipsets
         .filter((_, i, arr) => i < arr.length - 1)
         .map((t, i) => ({

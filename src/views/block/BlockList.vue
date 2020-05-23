@@ -52,11 +52,14 @@ export default {
       columns: [
         {
           key: "height",
+          isLink: true,
+          target: "tipset",
+          ellipsis: true
         },
         {
           key: "hash",
           isLink: true,
-          target: "message/detail",
+          target: "tipset",
           ellipsis: true
         },
         {
@@ -65,11 +68,6 @@ export default {
         {
           key: 'txlen',
         }
-        // {
-        //   key: "fee",
-        //   hideInMobile: true,
-        //   unit: "FIL"
-        // },
       ],
       labels: []
     };

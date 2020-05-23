@@ -89,7 +89,7 @@ export default {
             time: this.formatTime(timestamp)
           };
         });
-        console.log("dataSource:",dataSource)
+        // console.log("dataSource:",dataSource)
         this.blockTable.dataSource = dataSource;
         Object.values(heightMap).forEach(item => {
           this.blockTable.heightMap[item.index] = item.span;

@@ -138,13 +138,11 @@ export default {
       this.option.count = v;
     },
     handlePageChange(v) {
-      console.log("v---:",v)
       this.currentPage = v;
       this.option.begindex = (v - 1) * this.option.count;
       this.option.page = v;
     },
     handleMethodChange(v) {
-      console.log("v2---:",v)
       this.currentPage = 1;
       this.option = {
         method: v,
@@ -164,16 +162,12 @@ export default {
         const ellipsisByLength = this.ellipsisByLength;
         
         let data = {};
-        console.log("this.type:",this.type)
-        console.log("this.type:",this.cid)
         if (this.type === "transaction") {
           let dataT = await getMessage(this.option);
           data.msgs = dataT.data.resp.txList;
           data.total = dataT.data.resp.count;
         }else if(this.type == "block"){
-          // console.log("gettx ...");
           let datas = await getTxListByHeaderHash(this.cid,this.option);
-           console.log("ms---:",datas)
           data.msgs = datas.data.resp.tx;
          
           data.total = datas.data.resp.count;
@@ -196,10 +190,8 @@ export default {
             type: this.address !== item.signer_id ? "in" : "out",
             height: this.formatNumber(item.height),
           };
-          console.log("res------:",res)
           return res;
         });
-        // console.log("messageData::",messageData)
         this.messageData = messageData;
         this.loading = false;
       } catch (e) {
@@ -238,7 +230,7 @@ export default {
     }
   },
   mounted() {
-    this.labels = [...this.$t("component.mesList.label")];
+    this.labels = [...this.$t("component.mesAccList.label")];
     if (!this.withType) {
       this.columns.shift();
       this.labels.shift();

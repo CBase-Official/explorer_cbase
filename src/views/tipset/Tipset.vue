@@ -128,7 +128,7 @@ export default {
       deep: true,
       immediate: true,
       async handler(v) {
-          console.log("block:",v);
+          // console.log("block:",v);
           if(v.hash){
             this.hash = v.hash;
           let datas = await getBlockByHash(this.hash);
@@ -148,12 +148,12 @@ export default {
           this.height = v.height;
           let nums = v.height.replace(/,/g,'');
           let datasN = await getBlockByHeight(nums);
-          console.log("datasN:",datasN)
+          // console.log("datasN:",datasN)
           if(datasN.data.resp.header){
             this.block = datasN.data.resp.header;
             this.block.block_type = "Block"
           }
-          console.log("thisblock::",this.block)
+          // console.log("thisblock::",this.block)
         }
         
         
@@ -186,7 +186,7 @@ export default {
       }
     },
     currentBlock() {
-      console.log("sd--",this.block)
+      // console.log("sd--",this.block)
       return this.block;
     },
     mbBlockList() {
@@ -213,7 +213,7 @@ export default {
   },
   methods: {
     getBlocks(v) {
-      console.log("v:",v)
+      // console.log("v:",v)
       this.blocks = v;
     },
     handleHashChange(v) {

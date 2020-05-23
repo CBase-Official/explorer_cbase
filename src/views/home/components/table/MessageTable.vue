@@ -52,18 +52,22 @@ export default {
     };
   },
   methods: {
-    initMesTimer() {
-      this.messageTable.timer = setInterval(() => {
-        this.messageTable.dataSource = this.messageTable.dataSource.map(
-          item => {
-            return {
-              ...item,
-              time: this.formatTime(item.originTime, item.current),
-              current: item.current + 1000
-            };
-          }
-        );
-      }, 1000);
+    // initMesTimer() {
+    //   this.messageTable.timer = setInterval(() => {
+    //     this.messageTable.dataSource = this.messageTable.dataSource.map(
+    //       item => {
+    //         return {
+    //           ...item,
+    //           time: this.formatTime(item.originTime, item.current),
+    //           current: item.current + 1000
+    //         };
+    //       }
+    //     );
+    //   }, 1000);
+    // },
+    formatTime(times){
+      let date = new Date(times);
+      return date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
     },
     async getMessageData(num) {
       if (num > 30) {
@@ -73,23 +77,10 @@ export default {
       try {
         const datas = await txList(0);
         const dataSource = datas.data.resp.txList.map(item => {
-          // console.log("item:",item)
-          // let from = item.signer_id;
-          // let to = item.receiver_id;
-          let value = item.value;
-          if(!value){
-            value = 0;
-          }
-          const current = new Date().getTime();
-          const realTime =
-            item.msgcreate > current / 1000 ? current / 1000 : parseInt(item.timestamp/1000);
-         
           return {
             from:item.signer_id+"->"+item.receiver_id,
-            value: this.formatFilNumber(value),
-            time: this.formatTime(realTime),
-            originTime: realTime,
-            current: current,
+            value: item.value,
+            time: this.formatTime(item.timestamp),
             id: item.hash
           };
         });
@@ -114,7 +105,7 @@ export default {
           await this.getMessageData(10 * (this.messageTable.loadCount + 1));
           this.messageTable.loadCount++;
           this.messageTable.loading = false;
-          this.initMesTimer();
+          // this.initMesTimer();
         } catch (e) {
           if (e) {
             this.messageTable.loading = false;
@@ -130,7 +121,7 @@ export default {
       }
       clearInterval(this.messageTable.timer);
       await this.getMessageData(this.messageTable.loadCount * 10);
-      this.initMesTimer();
+      // this.initMesTimer();
     }
   },
   computed: {

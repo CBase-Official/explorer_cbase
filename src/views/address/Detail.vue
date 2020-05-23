@@ -132,7 +132,7 @@ export default {
     async getAddressInfo(a) {
       try {
         let res = await getAccountById(a);
-        console.log("res:",res.data.resp.account)
+        // console.log("res:",res.data.resp.account)
         const detail = res.data.resp.account;
         detail.accountId = a ;
         if(detail.nodeType == 0){

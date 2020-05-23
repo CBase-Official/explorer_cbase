@@ -75,7 +75,7 @@ export default {
     async getBoardInfo() {
       try {
         const infos = await latestMesg()
-        console.log("info:--",infos.data.resp)
+        // console.log("info:--",infos.data.resp)
         const info = infos.data.resp;
         this.loading = false;
         this.info = this.info.map(item => {

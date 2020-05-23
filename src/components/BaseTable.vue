@@ -179,7 +179,6 @@ export default {
     columnsWithLabel() {
       
       return this.columns.map((item, index) => {
-        // console.log("item:",item);
         return {
           ...item,
           label: this.labels[index]
@@ -247,7 +246,6 @@ export default {
           return [Number(item[0]) + 1, Number(item[0]) + item[1] + 1];
         });
       let className = "";
-      // console.log("res====,",res)
       for (let i = 0; i < res.length; i++) {
         const [left, right] = res[i];
         if (rowIndex >= left && rowIndex < right) {

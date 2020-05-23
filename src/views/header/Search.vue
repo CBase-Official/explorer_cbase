@@ -64,15 +64,15 @@ export default {
       }
       try {
         this.loading = true;
-        console.log("key:",this.key)
-        console.log("filter:",this.filter)
+        // console.log("key:",this.key)
+        // console.log("filter:",this.filter)
         // let res = await search({
         //   key: this.key,
         //   filter: this.filter
         // });
         let res = await search(this.key);
         this.loading = false;
-        console.log("model_flag:",res)
+        // console.log("model_flag:",res)
         const { model_flag } = res.data.resp;
         
         let target = "";
