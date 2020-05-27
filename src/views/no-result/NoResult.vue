@@ -44,12 +44,15 @@ export default {
     .key {
       word-break: break-all;
       color: var(--main-text-color);
+      font-size: inherit;
       span {
         color: var(--main-text-color);
+        font-size: inherit;
       }
     }
     .key + div {
       color: var(--main-text-color);
+      font-size: inherit;
     }
   }
 
@@ -83,6 +86,7 @@ export default {
       border-radius: 4vw;
       box-shadow: 0px 2px 4px 0px var(--link-color);
       margin-top: 6vw;
+      font-size: inherit;
     }
     .res {
       text-align: center;

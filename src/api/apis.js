@@ -2,12 +2,14 @@ var axios = require("axios");
 // var data_url = "http://112.74.106.123:3000/"
 // var near_url = "http://112.74.106.123:3030";
 
-var data_url = "http://8.210.21.255:3000/"
+var data_url = "http://localhost:3000/"
+
+// var data_url = "http://8.210.21.255:3000/"
 var near_url = "http://8.210.15.50:3030"
 
 // var data_url = "http://192.168.80.54:3000/"
 // var data_url = "http://192.168.1.108:3000/"
-// var near_url = "http://192.168.80.54:3030"
+// var near_url = "http://192.168.80.34:3030"
 // var data_url = "http://47.90.101.201:3000/";
 // var near_url = "http://47.90.101.201:3030"
 
@@ -149,5 +151,13 @@ export function getMessage(options){
         method: 'GET',
         url: data_url + 'api/transaction/getTxListOrByAccount',
         params: {"page":options.page}
+    })
+}
+
+export function getTpsData() {
+    return axios({
+        method: 'GET',
+        url : data_url + 'api/node/getTpsData',
+        params:{}
     })
 }

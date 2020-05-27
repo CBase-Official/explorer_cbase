@@ -158,6 +158,12 @@ const en = {
     ]
   },
   home: {
+    blockTps: {
+      label: "Avg Tps",
+      min: "Min",
+      max: "Max", 
+      tips: "Avg Tps in latest 24H"
+    },
     blockTime: {
       label: "Avg Blocktime",
       min: "Min",
@@ -183,8 +189,8 @@ const en = {
     },
     board: {
       height: {
-        label: "Tipset Height",
-        tips: "The Latest Tipset Height"
+        label: "Height",
+        tips: "The Latest Height"
       },
       reward: {
         label: "Block Reward",
@@ -195,7 +201,7 @@ const en = {
         tips: "The Latest Validator number"
       },
       tx_speed: {
-        label: "Tps",
+        label: "CurTps",
         tips: "The Latest tx speed"
       },
       avgTime: {

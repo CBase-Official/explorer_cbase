@@ -19,6 +19,18 @@
         font-size: inherit;
     }
 }
+:root[theme='dark'] {
+    .el-link {
+        font-size: inherit;
+    }
+    .el-input {
+        font-size: inherit;
+    }
+    .el-button {
+        font-size: inherit;
+    }
+}
+
 .el-menu--horizontal ul {
     background: var(--board-bg-color)!important;
     li{

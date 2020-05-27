@@ -15,6 +15,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .no-result {
+  
   height: 100%;
   .photo-con {
     background: url("~@/assets/image/404.png");
@@ -27,6 +28,7 @@ export default {
     justify-content: flex-end;
     align-items: center;
     div.des {
+      
       font-size: 44px;
       color: var(--main-text-color);
     }
