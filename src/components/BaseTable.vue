@@ -14,7 +14,7 @@
       element-loading-background="transparent"
       :class="{ radius: radius, mini: atIndex }"
       :size="atIndex ? 'mini' : ''"
-      :height="700 * rate"
+      :height="900"
       :row-class-name="getRowClass"
       :cell-class-name="getCellClass"
       :default-sort="defaultSort"
